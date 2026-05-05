@@ -54,7 +54,24 @@ func QuoteInputBuy(name, value string) Elem_t {
 	if !Valid(buyDate) { buyDate = defaultDate }
 	if Valid(minDate) && int(buyDate) < int(minDate) { buyDate = minDate }
 	if Valid(maxDate) && int(buyDate) > int(maxDate) { buyDate = maxDate }
-	return QuoteInputPopupDate(name, buyDate, minDate, maxDate)
+	valueYMD := buyDate.Format(`yyyymmdd`)
+	hidden := Elem(`input`).
+		Type(`hidden`).
+		Name(name).
+		Value(valueYMD).
+		KV(`data-date-hidden`, `1`)
+	if Valid(minDate) { hidden = hidden.KV(`data-min`, minDate.Format(`yyyymmdd`)) }
+	if Valid(maxDate) { hidden = hidden.KV(`data-max`, maxDate.Format(`yyyymmdd`)) }
+	host := Div().
+		Class(`qdate-host`).
+		KV(`data-date-host`, `1`).
+		KV(`value`, valueYMD)
+	if Valid(minDate) { host = host.KV(`data-min`, minDate.Format(`yyyymmdd`)) }
+	if Valid(maxDate) { host = host.KV(`data-max`, maxDate.Format(`yyyymmdd`)) }
+	return Div().Class(`qdate`, `qdate-buy`).KV(`data-date-control`, `1`).Wrap(
+		hidden,
+		host,
+	)
 }
 
 func QuoteInputBirth(name, value string) Elem_t {
@@ -63,7 +80,24 @@ func QuoteInputBirth(name, value string) Elem_t {
 	if !Valid(birthDate) { birthDate = defaultDate }
 	if Valid(minDate) && int(birthDate) < int(minDate) { birthDate = minDate }
 	if Valid(maxDate) && int(birthDate) > int(maxDate) { birthDate = maxDate }
-	return QuoteInputPopupDate(name, birthDate, minDate, maxDate)
+	valueYMD := birthDate.Format(`yyyymmdd`)
+	hidden := Elem(`input`).
+		Type(`hidden`).
+		Name(name).
+		Value(valueYMD).
+		KV(`data-date-hidden`, `1`)
+	if Valid(minDate) { hidden = hidden.KV(`data-min`, minDate.Format(`yyyymmdd`)) }
+	if Valid(maxDate) { hidden = hidden.KV(`data-max`, maxDate.Format(`yyyymmdd`)) }
+	host := Div().
+		Class(`qdate-host`).
+		KV(`data-date-host`, `1`).
+		KV(`value`, valueYMD)
+	if Valid(minDate) { host = host.KV(`data-min`, minDate.Format(`yyyymmdd`)) }
+	if Valid(maxDate) { host = host.KV(`data-max`, maxDate.Format(`yyyymmdd`)) }
+	return Div().Class(`qdate`, `qdate-birth`).KV(`data-date-control`, `1`).Wrap(
+		hidden,
+		host,
+	)
 }
 
 func QuoteInputPopupDate(name string, date, minDate, maxDate CalDate_t) Elem_t {

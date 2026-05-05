@@ -140,7 +140,8 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 	head = head.HeadFirstScript(DeviceConfirmHeadScript(mode))
 	head = head.
 		CSS(QuoteCSSPath(layout)).
-		JSTail(Str(`/static/js/page.1.quote.buy.js?v=`, App.staticVersion)).
+		CSSTail(Str(`/static/css/page.1.quote.date.css?v=`, App.staticVersion)).
+		JSTail(Str(`/static/js/page.1.quote.date.js?v=`, App.staticVersion)).
 		JSTail(Str(`/static/js/page.1.quote.js?v=`, App.staticVersion)).
 		Title(SiteName).
 		End()

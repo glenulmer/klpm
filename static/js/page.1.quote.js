@@ -124,6 +124,10 @@
 			el.value = sickCoverText(sickCoverValue(el), true);
 		}
 	};
+	const initDateControls = (root = document) => {
+		if (typeof window.QuoteDateControlInit !== 'function') return;
+		window.QuoteDateControlInit(root);
+	};
 
 	const controlValue = (el) => {
 		if (el instanceof HTMLButtonElement) return el.value || '1';
@@ -172,6 +176,7 @@
 				}
 				applyFoldStates();
 				initSickCover();
+				initDateControls();
 				syncPhoneSticky();
 			})
 			.catch(() => {});
@@ -273,5 +278,6 @@
 	window.addEventListener('scroll', scheduleStickySync, { passive: true });
 	window.addEventListener('resize', scheduleStickySync);
 	initSickCover();
+	initDateControls();
 	scheduleStickySync();
 })();

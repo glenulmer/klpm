@@ -1,0 +1,174 @@
+.qdate {
+	position: relative;
+}
+
+.qdate .qdate-host {
+	display: block;
+	width: 100%;
+}
+
+.qdate .date-control-host {
+	display: block;
+	width: 100%;
+	font-family: inherit;
+	color: inherit;
+}
+
+.qdate .date-control {
+	--qdate-font-size: 0.86rem;
+	--qdate-field-height: 1.66rem;
+	--qdate-arrow-height: 0.24rem;
+	--qdate-arrow-half: 0.28rem;
+	--qdate-border-color: #b7b7b7;
+	--qdate-sep-color: #d7d7d7;
+	display: inline-flex;
+	align-items: center;
+	justify-content: stretch;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 0.125rem;
+	border: 0.0625rem solid var(--qdate-border-color);
+	border-radius: 0.28rem;
+	background: #fff;
+	user-select: none;
+}
+
+.qdate .segment {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: var(--qdate-field-height);
+	cursor: pointer;
+}
+
+.qdate .segment + .segment {
+	border-left: 0.0625rem solid var(--qdate-sep-color);
+}
+
+.qdate .segment.day,
+.qdate .segment.month {
+	flex: 1 1 0;
+}
+
+.qdate .segment.year {
+	flex: 1.7 1 0;
+}
+
+.qdate .segment.day .value-input,
+.qdate .segment.month .value-input {
+	width: 100%;
+}
+
+.qdate .segment.year .value-input {
+	width: 100%;
+	text-align: center;
+}
+
+.quote-field .qdate .value-input,
+.quote-control .qdate .value-input,
+.qdate .value-input {
+	height: var(--qdate-field-height);
+	box-sizing: border-box;
+	border: 0 !important;
+	outline: none;
+	padding: 0 !important;
+	margin: 0;
+	text-align: center;
+	font-size: var(--qdate-font-size);
+	line-height: 1;
+	font-family: inherit;
+	font-weight: 400;
+	color: #1e2a3b;
+	background: transparent !important;
+	cursor: pointer;
+	border-radius: 0 !important;
+	min-height: 0;
+	box-shadow: none;
+	user-select: none;
+	-webkit-user-select: none;
+	caret-color: transparent;
+}
+
+.qdate .value-input:focus {
+	outline: none;
+}
+
+.qdate .value-input::selection {
+	background: transparent;
+	color: inherit;
+}
+
+.qdate .segment:hover .value-input,
+.qdate .segment:focus-within .value-input {
+	background: #e9f1fb;
+}
+
+.qdate .arrow-btn {
+	position: absolute;
+	left: 0;
+	transform: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 50%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	color: transparent;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.qdate .segment:hover .arrow-btn,
+.qdate .segment:focus-within .arrow-btn {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.qdate .arrow-btn::before {
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: var(--qdate-arrow-half) solid transparent;
+	border-right: var(--qdate-arrow-half) solid transparent;
+}
+
+.qdate .arrow-btn.up {
+	top: 0;
+	align-items: flex-start;
+	padding-top: 0.08rem;
+}
+
+.qdate .arrow-btn.up::before {
+	border-bottom: var(--qdate-arrow-height) solid #4e6079;
+}
+
+.qdate .arrow-btn.down {
+	bottom: 0;
+	align-items: flex-end;
+	padding-bottom: 0.08rem;
+}
+
+.qdate .arrow-btn.down::before {
+	border-top: var(--qdate-arrow-height) solid #4e6079;
+}
+
+@media (hover: none), (pointer: coarse) {
+	.qdate .arrow-btn {
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+.quote-page-phone .qdate .date-control {
+	--qdate-font-size: 0.9rem;
+	--qdate-field-height: 1.9rem;
+	--qdate-border-color: #9cb6d4;
+	--qdate-sep-color: #c8d7e8;
+	border-radius: 0.5rem;
+}

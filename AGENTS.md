@@ -11,6 +11,8 @@
 ## B) Interaction Rule
 
 * Keep feedback technical and concrete.
+* Be terse, specific, and fact-based.
+* No long lists of options - at most 3 clearly distinct, realistic options.
 * State conclusions and recent actions first. Details afterward.
 * Any path starting with an alphabetic is relative to the repository root
 * If I ask for analysis, do not guess or make assumptions -- state relevant facts and conclusions succinctly.
