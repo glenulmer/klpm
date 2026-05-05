@@ -16,17 +16,21 @@
 
 .qdate .date-control {
 	--qdate-font-size: 0.86rem;
-	--qdate-field-height: 1.66rem;
+	--qdate-field-height: 1.875rem;
 	--qdate-arrow-height: 0.24rem;
 	--qdate-arrow-half: 0.28rem;
+	--qdate-segment-gap: 0.22ch;
 	--qdate-border-color: #b7b7b7;
 	--qdate-sep-color: #d7d7d7;
 	display: inline-flex;
 	align-items: center;
-	justify-content: stretch;
+	justify-content: flex-end;
+	font-size: var(--qdate-font-size);
+	line-height: 1;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 0 0.125rem;
+	column-gap: var(--qdate-segment-gap);
+	padding: 0 0.5rem 0 0.125rem;
 	border: 0.0625rem solid var(--qdate-border-color);
 	border-radius: 0.28rem;
 	background: #fff;
@@ -38,21 +42,24 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-size: inherit;
 	min-height: var(--qdate-field-height);
 	cursor: pointer;
 }
 
 .qdate .segment + .segment {
-	border-left: 0.0625rem solid var(--qdate-sep-color);
+	border-left: 0;
 }
 
 .qdate .segment.day,
 .qdate .segment.month {
-	flex: 1 1 0;
+	flex: 0 0 auto;
+	width: 2.65ch;
 }
 
 .qdate .segment.year {
-	flex: 1.7 1 0;
+	flex: 0 0 auto;
+	width: 4.15ch;
 }
 
 .qdate .segment.day .value-input,
@@ -62,7 +69,6 @@
 
 .qdate .segment.year .value-input {
 	width: 100%;
-	text-align: center;
 }
 
 .quote-field .qdate .value-input,
@@ -74,11 +80,12 @@
 	outline: none;
 	padding: 0 !important;
 	margin: 0;
-	text-align: center;
+	text-align: right;
 	font-size: var(--qdate-font-size);
 	line-height: 1;
 	font-family: inherit;
 	font-weight: 400;
+	font-variant-numeric: tabular-nums;
 	color: #1e2a3b;
 	background: transparent !important;
 	cursor: pointer;
@@ -166,8 +173,7 @@
 }
 
 .quote-page-phone .qdate .date-control {
-	--qdate-font-size: 0.9rem;
-	--qdate-field-height: 1.9rem;
+	--qdate-field-height: 1.875rem;
 	--qdate-border-color: #9cb6d4;
 	--qdate-sep-color: #c8d7e8;
 	border-radius: 0.5rem;

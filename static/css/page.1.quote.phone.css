@@ -186,10 +186,11 @@ details[open] > .quote-phone-fold-title::before {
 	line-height: 1.2;
 }
 
-.quote-field :is(input[type="text"], input[type="date"], input[type="number"], select),
-.quote-control :is(input[type="text"], input[type="date"], input[type="number"], select) {
+.quote-field > :is(input[type="text"], input[type="date"], input[type="number"], select),
+.quote-control > :is(input[type="text"], input[type="date"], input[type="number"], select) {
 	width: 100%;
 	box-sizing: border-box;
+	height: 2rem;
 	padding: 0.42rem 0.5rem;
 	border: 0.0625rem solid #9cb6d4;
 	border-radius: 0.5rem;
@@ -199,7 +200,26 @@ details[open] > .quote-phone-fold-title::before {
 	font-family: inherit;
 }
 
-.quote-phone-right :is(input[type="number"], input[data-sick-cover="1"], select) {
+.quote-field > select,
+.quote-control > select {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-top: 0.25rem !important;
+	padding-bottom: 0.25rem !important;
+	padding-left: 0.5rem !important;
+	padding-right: 1.3rem !important;
+	line-height: 1.2 !important;
+	background-image:
+		linear-gradient(45deg, transparent 50%, #4e6079 50%),
+		linear-gradient(135deg, #4e6079 50%, transparent 50%);
+	background-repeat: no-repeat;
+	background-size: 0.18rem 0.18rem, 0.18rem 0.18rem;
+	background-position:
+		calc(100% - 0.78rem) calc(50% - 0.11rem),
+		calc(100% - 0.62rem) calc(50% - 0.11rem);
+}
+
+.quote-phone-right > :is(input[type="number"], input[data-sick-cover="1"], select) {
 	text-align: right;
 }
 
@@ -207,7 +227,7 @@ details[open] > .quote-phone-fold-title::before {
 	display: none;
 }
 
-.quote-phone-no-label :is(input[type="text"], input[type="date"], input[type="number"], select) {
+.quote-phone-no-label > :is(input[type="text"], input[type="date"], input[type="number"], select) {
 	margin-top: 0;
 }
 

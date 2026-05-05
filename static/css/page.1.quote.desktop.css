@@ -115,10 +115,11 @@ body {
 	color: #5e5e5e;
 }
 
-.quote-field :is(input[type="text"], input[type="date"], input[type="number"], select),
-.quote-control :is(input[type="text"], input[type="date"], input[type="number"], select) {
+.quote-field > :is(input[type="text"], input[type="date"], input[type="number"], select),
+.quote-control > :is(input[type="text"], input[type="date"], input[type="number"], select) {
 	width: 100%;
 	box-sizing: border-box;
+	height: 2rem;
 	padding: 0.36rem 0.42rem;
 	border: 0.0625rem solid #b7b7b7;
 	border-radius: 0.28rem;
@@ -128,7 +129,14 @@ body {
 	font-family: inherit;
 }
 
-.quote-desk-right :is(input[type="number"], input[data-sick-cover="1"], select) {
+.quote-field > select,
+.quote-control > select {
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 1.35;
+}
+
+.quote-desk-right > :is(input[type="number"], input[data-sick-cover="1"], select) {
 	text-align: right;
 }
 
@@ -136,7 +144,7 @@ body {
 	display: none;
 }
 
-.quote-desk-no-label :is(input[type="text"], input[type="date"], input[type="number"], select) {
+.quote-desk-no-label > :is(input[type="text"], input[type="date"], input[type="number"], select) {
 	margin-top: 0;
 }
 
