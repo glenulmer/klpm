@@ -166,6 +166,24 @@
 }
 
 @media (hover: none), (pointer: coarse) {
+	.qdate .date-control {
+		--qdate-font-size: 0.94rem;
+		--qdate-field-height: 2rem;
+	}
+
+	.quote-page-phone .qdate .date-control {
+		--qdate-field-height: 2rem;
+	}
+
+	.qdate .segment.day,
+	.qdate .segment.month {
+		width: 3.2ch;
+	}
+
+	.qdate .segment.year {
+		width: 4.9ch;
+	}
+
 	.qdate .arrow-btn {
 		opacity: 1;
 		pointer-events: auto;

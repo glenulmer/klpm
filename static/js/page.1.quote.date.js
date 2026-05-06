@@ -165,15 +165,17 @@
 
 		startHold(segmentType, direction, pointerId) {
 			this.clearHoldTimers();
-			this.activeHoldMeta = { segmentType, direction, pointerId };
+			this.activeHoldMeta = { segmentType, direction, pointerId, holdStepped:false };
 			this.suppressNextClick = false;
 			this.holdDelayTimer = setTimeout(() => {
 				if (!this.activeHoldMeta) return;
 				this.suppressNextClick = true;
 				this.stepWithHoldAcceleration(segmentType, direction, true);
+				this.activeHoldMeta.holdStepped = true;
 				this.holdRepeatTimer = setInterval(() => {
 					if (!this.activeHoldMeta) return;
 					this.stepWithHoldAcceleration(segmentType, direction, true);
+					this.activeHoldMeta.holdStepped = true;
 				}, HOLD_REPEAT_MS);
 			}, HOLD_DELAY_MS);
 		}
@@ -186,15 +188,48 @@
 		}
 
 		attachHoldBehavior(button, segmentType, direction) {
-			button.addEventListener('pointerdown', (event) => {
+			const stepOnRelease = (pointerId = null) => {
+				if (!this.activeHoldMeta) return;
+				if (pointerId != null && this.activeHoldMeta.pointerId !== pointerId) return;
+				if (this.activeHoldMeta.holdStepped) return;
+				this.suppressNextClick = true;
+				this.stepSegment(segmentType, direction);
+			};
+			if (window.PointerEvent) {
+				button.addEventListener('pointerdown', (event) => {
+					if (event.button !== 0) return;
+					event.preventDefault();
+					button.setPointerCapture(event.pointerId);
+					this.startHold(segmentType, direction, event.pointerId);
+				});
+				button.addEventListener('pointerup', (event) => {
+					stepOnRelease(event.pointerId);
+					this.endHold(event.pointerId);
+				});
+				button.addEventListener('pointercancel', (event) => { this.endHold(event.pointerId); });
+				button.addEventListener('lostpointercapture', (event) => { this.endHold(event.pointerId); });
+				return;
+			}
+			button.addEventListener('mousedown', (event) => {
 				if (event.button !== 0) return;
 				event.preventDefault();
-				button.setPointerCapture(event.pointerId);
-				this.startHold(segmentType, direction, event.pointerId);
+				this.startHold(segmentType, direction, null);
 			});
-			button.addEventListener('pointerup', (event) => { this.endHold(event.pointerId); });
-			button.addEventListener('pointercancel', (event) => { this.endHold(event.pointerId); });
-			button.addEventListener('lostpointercapture', (event) => { this.endHold(event.pointerId); });
+			button.addEventListener('mouseup', () => {
+				stepOnRelease(null);
+				this.endHold(null);
+			});
+			button.addEventListener('mouseleave', () => { this.endHold(null); });
+			button.addEventListener('touchstart', (event) => {
+				event.preventDefault();
+				this.startHold(segmentType, direction, null);
+			}, { passive:false });
+			button.addEventListener('touchend', (event) => {
+				event.preventDefault();
+				stepOnRelease(null);
+				this.endHold(null);
+			}, { passive:false });
+			button.addEventListener('touchcancel', () => { this.endHold(null); });
 		}
 
 		stepSegment(segmentType, delta) {
