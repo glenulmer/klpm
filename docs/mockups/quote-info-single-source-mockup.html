@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quote Info Single-Source Mockup</title>
+  <style>
+    :root {
+      --bg: #f7f4ed;
+      --panel: #fffdf8;
+      --line: #d8d0bc;
+      --line-soft: #e9e2d1;
+      --text: #3f3b33;
+      --muted: #6a655b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.25 "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .mock-wrap {
+      max-width: 760px;
+      width: 100%;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(52, 46, 35, 0.08);
+    }
+
+    .selected-wrap {
+      max-width: 1200px;
+      width: 100%;
+      margin: 10px 0 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff8ee;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(52, 46, 35, 0.08);
+    }
+
+    .mock-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 9px;
+      background: #f2ebda;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mock-head h1 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .quote-info-form {
+      display: grid;
+      gap: 6px;
+      padding: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      height: 24px;
+      border: 1px solid #8fa3c1;
+      border-radius: 4px;
+      background: #f4f8ff;
+      color: #214064;
+      font: inherit;
+      font-weight: 700;
+      padding: 0 9px;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .field label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      padding-left: 2px;
+    }
+
+    .field.no-label label { display: none; }
+
+    input[type="text"], input[type="date"], select {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #b7b7b7;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 8px;
+      font: inherit;
+    }
+
+    .right input,
+    .right select { text-align: right; }
+
+    .flags {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      padding: 5px;
+      border: 1px solid var(--line-soft);
+      border-radius: 4px;
+      background: #fff9ef;
+    }
+
+    .flag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--muted);
+      min-height: 22px;
+    }
+
+    .flag input { margin: 0; }
+
+    .row-divider {
+      border-top: 1px solid var(--line-soft);
+      padding-top: 8px;
+    }
+
+    .selected {
+      background: #fff8ee;
+      padding: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .selected-head {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+    }
+
+    .selected-title {
+      margin: 0;
+      font-size: 12px;
+      color: #5b503f;
+      font-weight: 700;
+    }
+
+    .selected-table-wrap {
+      border: 1px solid #dfcfb7;
+      border-radius: 4px;
+      background: #fffdf9;
+      overflow-x: auto;
+    }
+
+    .selected-table {
+      min-width: 0;
+      display: grid;
+      gap: 0;
+      padding: 4px;
+    }
+
+    .sel-head-row,
+    .sel-row {
+      display: grid;
+      grid-template-columns: 22px 50px 50px 50px minmax(130px, 1fr) 56px 56px 56px 56px 56px 56px 56px 56px 58px;
+      column-gap: 4px;
+      align-items: center;
+    }
+
+    .sel-head-row {
+      color: #807866;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 2px 4px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .sel-row {
+      color: #5f584d;
+      font-size: 11px;
+      padding: 4px 2px;
+      border-top: 1px solid #f1e8d8;
+    }
+
+    .sel-row-detail {
+      color: #6b6355;
+      font-size: 10px;
+      padding: 2px 2px;
+      border-top: 0;
+      background: #fffefb;
+      font-style: italic;
+    }
+
+    .sel-row-detail .sel-col-plan {
+      font-weight: 400;
+      color: #6b6355;
+    }
+
+    .sel-row-detail .sel-num {
+      color: #6b6355;
+    }
+
+    .sel-row-total {
+      border-top: 1px solid #d8c7aa;
+      background: #fff8ea;
+      font-weight: 700;
+    }
+
+    .sel-del {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #cba8a8;
+      border-radius: 3px;
+      background: #fff;
+      color: #6c3737;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .sel-name,
+    .sel-col-plan {
+      min-width: 0;
+      font-weight: 700;
+      color: #453d31;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .sel-num {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 64rem) {
+      .quote-info-form {
+        grid-template-columns: 1fr auto;
+        column-gap: 8px;
+        row-gap: 0;
+        align-items: start;
+      }
+
+      .actions {
+        grid-column: 2;
+        grid-row: 1;
+        flex-direction: column;
+      }
+
+      .grid {
+        grid-column: 1;
+        grid-row: 1;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 6px;
+      }
+
+      .f-name { grid-column: 1 / span 2; }
+      .f-segment { grid-column: 3 / span 1; }
+      .f-flags { grid-column: 4 / span 3; }
+
+      .f-birth { grid-column: 1 / span 1; }
+      .f-buy { grid-column: 2 / span 1; }
+      .f-cover { grid-column: 3 / span 1; }
+      .f-prior { grid-column: 4 / span 1; }
+      .f-exam { grid-column: 5 / span 1; }
+      .f-spec { grid-column: 6 / span 1; }
+
+      .f-ded-min { grid-column: 1 / span 1; }
+      .f-ded-max { grid-column: 2 / span 1; }
+      .f-hosp-min { grid-column: 3 / span 1; }
+      .f-hosp-max { grid-column: 4 / span 1; }
+      .f-dent-min { grid-column: 5 / span 1; }
+      .f-dent-max { grid-column: 6 / span 1; }
+
+      .f-birth, .f-buy, .f-cover, .f-prior, .f-exam, .f-spec,
+      .f-ded-min, .f-ded-max, .f-hosp-min, .f-hosp-max, .f-dent-min, .f-dent-max {
+        border-top: 1px solid var(--line-soft);
+        padding-top: 6px;
+      }
+
+      .max-field {
+        justify-content: flex-end;
+      }
+
+      .flags {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        background: transparent;
+        border: 0;
+        padding: 0;
+      }
+
+      .flag {
+        flex-direction: column;
+        justify-content: end;
+        text-align: center;
+        gap: 2px;
+        min-height: 28px;
+      }
+
+      .flag span {
+        font-size: 11px;
+        line-height: 1.1;
+      }
+
+      .selected {
+        padding: 7px;
+      }
+
+      .selected-table {
+        min-width: 0;
+      }
+
+      .sel-head-row,
+      .sel-row {
+        grid-template-columns: 22px 56px 56px 56px minmax(170px, 1fr) 60px 60px 60px 60px 60px 60px 60px 60px 62px;
+        column-gap: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="mock-wrap">
+    <header class="mock-head">
+      <h1>Quote Info (Single Source Mockup)</h1>
+    </header>
+
+    <form class="quote-info-form" action="#" method="post">
+      <div class="actions">
+        <button type="button" class="btn">Reset</button>
+        <button type="button" class="btn">Logout</button>
+      </div>
+
+      <div class="grid">
+        <div class="field no-label f-name">
+          <label>Client name</label>
+          <input type="text" value="Max Mustermann" />
+        </div>
+
+        <div class="field no-label f-segment">
+          <label>Segment</label>
+          <select>
+            <option selected>Employee</option>
+            <option>Freelancer</option>
+            <option>Student</option>
+          </select>
+        </div>
+
+        <div class="flags f-flags">
+          <label class="flag"><input type="checkbox" checked /> <span>Vision</span></label>
+          <label class="flag"><input type="checkbox" /> <span>Temp Visa</span></label>
+          <label class="flag"><input type="checkbox" /> <span>No PVN</span></label>
+          <label class="flag"><input type="checkbox" /> <span>Natural Med</span></label>
+        </div>
+
+        <div class="field f-birth">
+          <label>Birth date</label>
+          <input type="date" value="1994-06-15" />
+        </div>
+
+        <div class="field f-buy">
+          <label>Buy date</label>
+          <input type="date" value="2026-06-15" />
+        </div>
+
+        <div class="field right f-cover">
+          <label>Sick cover</label>
+          <input type="text" value="80.000" />
+        </div>
+
+        <div class="field f-prior">
+          <label>Prior cover</label>
+          <select>
+            <option selected>No prior cover</option>
+            <option>Prior EU/DE</option>
+            <option>DE &lt; 2 yrs</option>
+            <option>DE 2+ yrs</option>
+          </select>
+        </div>
+
+        <div class="field f-exam">
+          <label>Exam</label>
+          <select>
+            <option selected>Exam OK</option>
+            <option>No exam</option>
+          </select>
+        </div>
+
+        <div class="field f-spec">
+          <label>Specialist</label>
+          <select>
+            <option selected>Not important</option>
+            <option>Only referral</option>
+            <option>No referral</option>
+          </select>
+        </div>
+
+        <div class="field right f-ded-min">
+          <label>Deductible Min</label>
+          <select>
+            <option selected>0 €</option>
+            <option>300 €</option>
+            <option>600 €</option>
+            <option>1.000 €</option>
+          </select>
+        </div>
+
+        <div class="field right f-ded-max no-label max-field">
+          <label>Max</label>
+          <select>
+            <option>0 €</option>
+            <option>300 €</option>
+            <option>600 €</option>
+            <option selected>3.000 €</option>
+          </select>
+        </div>
+
+        <div class="field f-hosp-min">
+          <label>Hospital Min</label>
+          <select>
+            <option selected>No Hospital</option>
+            <option>Ward</option>
+            <option>Semi</option>
+            <option>Private</option>
+          </select>
+        </div>
+
+        <div class="field f-hosp-max no-label max-field">
+          <label>Max</label>
+          <select>
+            <option>No Hospital</option>
+            <option>Ward</option>
+            <option>Semi</option>
+            <option selected>Private</option>
+          </select>
+        </div>
+
+        <div class="field f-dent-min">
+          <label>Dental Min</label>
+          <select>
+            <option selected>No Dental</option>
+            <option>Basic</option>
+            <option>Better</option>
+            <option>Best</option>
+          </select>
+        </div>
+
+        <div class="field f-dent-max no-label max-field">
+          <label>Max</label>
+          <select>
+            <option>No Dental</option>
+            <option>Basic</option>
+            <option>Better</option>
+            <option selected>Best</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="selected-wrap">
+    <section class="selected">
+      <div class="selected-head">
+        <h2 class="selected-title">Selected Plans (2 / 5)</h2>
+      </div>
+      <div class="selected-table-wrap">
+        <div class="selected-table">
+          <div class="sel-head-row">
+            <div></div>
+            <div class="sel-num">Total</div>
+            <div class="sel-num">Ded</div>
+            <div class="sel-num">NC</div>
+            <div>Selected Product</div>
+            <div class="sel-num">Sick</div>
+            <div class="sel-num">PVN</div>
+            <div class="sel-num">Hospital</div>
+            <div class="sel-num">Dental</div>
+            <div class="sel-num">Natural</div>
+            <div class="sel-num">PIT</div>
+            <div class="sel-num">Specialist</div>
+            <div class="sel-num">Vision</div>
+            <div class="sel-num">Comm</div>
+          </div>
+
+          <div class="sel-row">
+            <button class="sel-del" type="button">×</button>
+            <div class="sel-num">330 €</div>
+            <div class="sel-num">300 €</div>
+            <div class="sel-num">0 €</div>
+            <div class="sel-name">Inter / LA-VNS U</div>
+            <div class="sel-num">43A</div>
+            <div class="sel-num">PVN</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">345 €</div>
+          </div>
+          <div class="sel-row sel-row-detail">
+            <div></div>
+            <div class="sel-num">330,45 €</div>
+            <div></div>
+            <div></div>
+            <div class="sel-col-plan">Base (Plan 186,89 €)</div>
+            <div class="sel-num">79,39 €</div>
+            <div class="sel-num">64,17 €</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div></div>
+          </div>
+          <div class="sel-row sel-row-detail">
+            <div></div>
+            <div class="sel-num">-</div>
+            <div></div>
+            <div></div>
+            <div class="sel-col-plan">Surcharge (Plan -)</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div></div>
+          </div>
+
+          <div class="sel-row">
+            <button class="sel-del" type="button">×</button>
+            <div class="sel-num">338 €</div>
+            <div class="sel-num">3.000 €</div>
+            <div class="sel-num">203 €</div>
+            <div class="sel-name">Hallesche / NK.select S 3000</div>
+            <div class="sel-num">43A</div>
+            <div class="sel-num">PVN</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">482 €</div>
+          </div>
+          <div class="sel-row sel-row-detail">
+            <div></div>
+            <div class="sel-num">317,82 €</div>
+            <div></div>
+            <div></div>
+            <div class="sel-col-plan">Base (Plan 202,99 €)</div>
+            <div class="sel-num">50,66 €</div>
+            <div class="sel-num">64,17 €</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div></div>
+          </div>
+          <div class="sel-row sel-row-detail">
+            <div></div>
+            <div class="sel-num">20,30 €</div>
+            <div></div>
+            <div></div>
+            <div class="sel-col-plan">Surcharge (Plan 20,30 €)</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div class="sel-num">-</div>
+            <div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </section>
+</body>
+</html>

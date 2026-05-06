@@ -12,31 +12,8 @@
 	let phoneStickyOn = false;
 
 	const phoneStickyGapPx = 0;
-	const isPhoneViewport = () => window.innerWidth < 900;
-	const viewportLayout = () => isPhoneViewport() ? 'phone' : 'desktop';
-	const domLayout = () => document.querySelector('.quote-page-phone') ? 'phone' : 'desktop';
-	const layoutURL = (layout) => {
-		const u = new URL(window.location.href);
-		u.searchParams.set('layout', layout);
-		return u.toString();
-	};
-	const cleanLayoutParam = () => {
-		const u = new URL(window.location.href);
-		if (!u.searchParams.has('layout')) return;
-		u.searchParams.delete('layout');
-		const q = u.searchParams.toString();
-		history.replaceState(null, '', `${u.pathname}${q ? `?${q}` : ''}${u.hash}`);
-	};
-	const ensureViewportLayout = () => {
-		const want = viewportLayout();
-		const have = domLayout();
-		if (want === have) {
-			cleanLayoutParam();
-			return false;
-		}
-		window.location.replace(layoutURL(want));
-		return true;
-	};
+	const desktopLayoutQuery = window.matchMedia('(min-width: 900px)');
+	const isPhoneViewport = () => !desktopLayoutQuery.matches;
 
 	const captureFoldStates = () => {
 		for (const id of foldIds) {
@@ -162,23 +139,106 @@
 		if (el instanceof HTMLButtonElement) return el.value || '1';
 		return el.type === 'checkbox' ? (el.checked ? '1' : '0') : el.value;
 	};
-	const sendIfChanged = (name, value, force = false) => {
+	const captureOpenDetailKeys = () => {
+		const keys = [];
+		for (const el of document.querySelectorAll('details.quote-plan-addon-details[open]')) {
+			const key = el.getAttribute('data-details-key') || '';
+			if (!key) continue;
+			keys.push(key);
+		}
+		return keys;
+	};
+	const applyOpenDetailKeys = (keys) => {
+		if (!Array.isArray(keys) || keys.length === 0) return;
+		for (const key of keys) {
+			const el = document.querySelector(`details.quote-plan-addon-details[data-details-key="${key}"]`);
+			if (!(el instanceof HTMLDetailsElement)) continue;
+			el.open = true;
+		}
+	};
+	const firstNumber = (value) => {
+		const m = String(value || '').match(/\d+/);
+		if (!m) return '';
+		return m[0] || '';
+	};
+	const anchorKeyFromName = (name) => {
+		if (!name) return '';
+		if (name.startsWith('plancat-') || name.startsWith('seladd-')) {
+			const n = firstNumber(name);
+			if (n) return `plan:${n}`;
+		}
+		if (name.startsWith('selcat-') || name.startsWith('seldel-') || name.startsWith('selplan-')) {
+			const n = firstNumber(name);
+			if (n) return `sel:${n}`;
+		}
+		return '';
+	};
+	const anchorKeyFromElement = (el) => {
+		if (!(el instanceof HTMLElement)) return '';
+		const card = el.closest('.quote-plan-card');
+		if (card instanceof HTMLElement) {
+			const selId = card.getAttribute('data-selected-item-id') || '';
+			if (selId) return `sel:${selId}`;
+			const planId = card.getAttribute('data-plan-id') || '';
+			if (planId) return `plan:${planId}`;
+		}
+		const name = el.getAttribute('name') || '';
+		return anchorKeyFromName(name);
+	};
+	const anchorNodeByKey = (key) => {
+		if (!key) return null;
+		if (key.startsWith('plan:')) {
+			const id = key.slice(5);
+			return document.querySelector(`.quote-plan-card[data-plan-id="${id}"]`);
+		}
+		if (key.startsWith('sel:')) {
+			const id = key.slice(4);
+			return document.querySelector(`.quote-plan-card[data-selected-item-id="${id}"]`);
+		}
+		return null;
+	};
+	const captureUiState = (originEl) => {
+		let anchorKey = '';
+		let anchorTop = 0;
+		if (originEl instanceof HTMLElement) {
+			anchorKey = anchorKeyFromElement(originEl);
+			const anchorNode = anchorNodeByKey(anchorKey);
+			if (anchorNode instanceof HTMLElement) {
+				anchorTop = anchorNode.getBoundingClientRect().top;
+			}
+		}
+		return {
+			anchorKey,
+			anchorTop,
+			openDetailKeys: captureOpenDetailKeys(),
+		};
+	};
+	const applyUiState = (uiState) => {
+		if (!uiState || typeof uiState !== 'object') return;
+		applyOpenDetailKeys(uiState.openDetailKeys);
+		const anchorNode = anchorNodeByKey(uiState.anchorKey);
+		if (!(anchorNode instanceof HTMLElement)) return;
+		const top = Number.isFinite(uiState.anchorTop) ? uiState.anchorTop : 0;
+		const nowTop = anchorNode.getBoundingClientRect().top;
+		window.scrollBy(0, nowTop - top);
+	};
+	const sendIfChanged = (name, value, force = false, originEl = null) => {
 		if (force) {
-			postChange(name, value);
+			postChange(name, value, originEl);
 			return;
 		}
 		if (lastSent.get(name) === value) return;
 		lastSent.set(name, value);
-		postChange(name, value);
+		postChange(name, value, originEl);
 	};
 
-	const postChange = (name, value) => {
+	const postChange = (name, value, originEl = null) => {
 		const call = ++seq;
 		captureFoldStates();
+		const uiState = captureUiState(originEl);
 		const form = new FormData();
 		form.append('name', name);
 		form.append('value', value);
-		form.append('layout', viewportLayout());
 
 		fetch('/quote-info-change', {
 			method: 'POST',
@@ -205,6 +265,7 @@
 					}
 				}
 				applyFoldStates();
+				applyUiState(uiState);
 				initSickCover();
 				initDateControls();
 				syncPhoneSticky();
@@ -212,10 +273,10 @@
 			.catch(() => {});
 	};
 
-	const schedule = (name, value, wait) => {
+	const schedule = (name, value, wait, originEl = null) => {
 		window.clearTimeout(timer);
 		timer = window.setTimeout(() => {
-			sendIfChanged(name, value);
+			sendIfChanged(name, value, false, originEl);
 		}, wait);
 	};
 
@@ -234,19 +295,19 @@
 			}
 			const v = sickCoverValue(el);
 			el.value = sickCoverText(v, true);
-			sendIfChanged(name, String(v));
+			sendIfChanged(name, String(v), false, el);
 			return;
 		}
 		const value = controlValue(el);
 		if (name === 'clientName') {
-			schedule(name, value, clientNameDebounceMs);
+			schedule(name, value, clientNameDebounceMs, el);
 			return;
 		}
 		if (el.tagName === 'INPUT' && el.getAttribute('type') !== 'checkbox') {
-			schedule(name, value, debounceMs);
+			schedule(name, value, debounceMs, el);
 			return;
 		}
-		sendIfChanged(name, value);
+		sendIfChanged(name, value, false, el);
 	};
 
 	const onButtonClick = (ev) => {
@@ -265,7 +326,7 @@
 			foldState.set('QuoteSelectedCard', true);
 		}
 		const value = controlValue(el);
-		sendIfChanged(name, value, true);
+		sendIfChanged(name, value, true, el);
 	};
 
 	const onFoldToggle = (ev) => {
@@ -306,11 +367,7 @@
 	document.addEventListener('toggle', onFoldToggle, true);
 	document.addEventListener('click', onFoldSummaryClick, true);
 	window.addEventListener('scroll', scheduleStickySync, { passive: true });
-	window.addEventListener('resize', () => {
-		if (ensureViewportLayout()) return;
-		scheduleStickySync();
-	});
-	if (ensureViewportLayout()) return;
+	window.addEventListener('resize', scheduleStickySync);
 	initSickCover();
 	initDateControls();
 	scheduleStickySync();

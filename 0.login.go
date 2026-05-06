@@ -2,13 +2,14 @@ package main
 
 import (
 	"net/http"
+	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		w.Write(SignInPage())
+		w.Write(SignInPage(SessionDeviceMode(r)))
 		return
 	}
 
@@ -33,7 +34,11 @@ func SignOutHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, `/signin`, http.StatusSeeOther)
 }
 
-func SignInPage() []byte { return getLogin }
+func SignInPage(mode string) []byte {
+	script := DeviceConfirmHeadScript(mode)
+	page := strings.Replace(string(getLogin), `</head>`, "\t<script>\n"+script+"\n\t</script>\n</head>", 1)
+	return []byte(page)
+}
 
 func FindUserInfo(user, pass string) UserInfo_t {
 	var greet, hash string

@@ -69,7 +69,7 @@ func QuotePlanCardView(x QuotePlan_t) Elem_t {
 	var addons []Elem_t
 	addons = append(addons, QuotePlanBaseView(x))
 	for _, addon := range x.addons { addons = append(addons, QuotePlanAddonView(x.planId, addon)) }
-	return Div().Class(`quote-plan-card`).Wrap(
+	return Div().Class(`quote-plan-card`).KV(`data-plan-id`, Str(x.planId)).Wrap(
 		Div().Class(`quote-plan-head`).Wrap(
 			Div().Class(`quote-plan-head-main`).Wrap(
 				Elem(`button`).Type(`button`).Name(QuoteSelectedAddControlName(x.planId)).Value(Str(x.planId)).Class(`quote-plan-pick-btn`, `quote-plan-pick-add`).Text(`🛒`),
@@ -93,7 +93,7 @@ func QuotePlanCardView(x QuotePlan_t) Elem_t {
 				Span(PriceTextWholeEuro(x.commission, true)).Class(`quote-plan-meta-value`),
 			),
 		),
-		Elem(`details`).Class(`quote-plan-addon-details`).Wrap(
+		Elem(`details`).Class(`quote-plan-addon-details`).KV(`data-details-key`, Str(`plan-`, x.planId)).Wrap(
 			Elem(`summary`).Class(`quote-plan-addon-title`).Wrap(
 				Span(`Product details`).Class(`quote-plan-addon-title-label`),
 				Span(PriceText(x.base, true)).Class(`quote-plan-addon-title-sum`),
@@ -124,7 +124,12 @@ func QuoteSelectedPlanCardView(item QuoteSelectedItem_t, row QuotePlan_t) Elem_t
 	addons = append(addons, QuotePlanBaseView(row))
 	for _, addon := range row.addons { addons = append(addons, QuoteSelectedPlanAddonView(item.itemId, addon)) }
 
-	return Div().Id(Str(`QuoteSelected-`, item.itemId)).Class(`quote-plan-card`, `quote-plan-card-selected`).Wrap(
+	return Div().
+		Id(Str(`QuoteSelected-`, item.itemId)).
+		Class(`quote-plan-card`, `quote-plan-card-selected`).
+		KV(`data-selected-item-id`, Str(item.itemId)).
+		KV(`data-plan-id`, Str(item.planId)).
+		Wrap(
 		Div().Class(`quote-plan-head`).Wrap(
 			Div().Class(`quote-plan-head-main`).Wrap(
 				Elem(`button`).Type(`button`).Name(QuoteSelectedDelControlName(item.itemId)).Value(Str(item.itemId)).Class(`quote-plan-pick-btn`, `quote-plan-pick-del`).Text(`🗑`),
@@ -148,7 +153,7 @@ func QuoteSelectedPlanCardView(item QuoteSelectedItem_t, row QuotePlan_t) Elem_t
 				Span(PriceTextWholeEuro(row.commission, true)).Class(`quote-plan-meta-value`),
 			),
 		),
-		Elem(`details`).Class(`quote-plan-addon-details`).Wrap(
+		Elem(`details`).Class(`quote-plan-addon-details`).KV(`data-details-key`, Str(`sel-`, item.itemId)).Wrap(
 			Elem(`summary`).Class(`quote-plan-addon-title`).Wrap(
 				Span(`Product details`).Class(`quote-plan-addon-title-label`),
 				Span(PriceText(row.base, true)).Class(`quote-plan-addon-title-sum`),

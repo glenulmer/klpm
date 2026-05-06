@@ -19,32 +19,43 @@ func QuotePhoneFormBodyView(vars QuoteVars_t) Elem_t {
 					QuoteResetButton(`quote-phone-selected-edit-btn`),
 				),
 			),
-			Div().Class(`quote-grid`, `quote-grid-phone`).Wrap(
-			QuoteNamedControlOnlySpanView(layoutPhone, `clientName`, vars, 8, `quote-phone-no-label`),
-			QuoteNamedControlOnlySpanView(layoutPhone, `segment`, vars, 4, `quote-phone-no-label`),
-			QuoteNamedControlSpanView(layoutPhone, `birth`, vars, 4),
-			QuoteNamedControlSpanView(layoutPhone, `buy`, vars, 4),
-			QuoteNamedControlSpanView(layoutPhone, `sickCover`, vars, 4, `quote-phone-right`),
-			QuoteNamedControlSpanView(layoutPhone, `priorCov`, vars, 4),
-			QuoteNamedControlSpanView(layoutPhone, `exam`, vars, 4),
-			QuoteNamedControlSpanView(layoutPhone, `specref`, vars, 4),
-
-			QuoteSpacer(1),
-			Div().Class(QuoteSpanClass(10), `quote-phone-checks`).Wrap(
-				QuoteNamedControlSpanView(layoutPhone, `vision`, vars, 1, `quote-phone-check`),
-				QuoteNamedControlSpanView(layoutPhone, `tempVisa`, vars, 1, `quote-phone-check`),
-				QuoteNamedControlSpanView(layoutPhone, `noPVN`, vars, 1, `quote-phone-check`),
-				QuoteNamedControlSpanView(layoutPhone, `naturalMed`, vars, 1, `quote-phone-check`),
-			),
-			QuoteSpacer(1),
-
-			QuoteNamedControlLabelSpanView(layoutPhone, `deductibleMin`, `Deductible`, vars, 4, `quote-phone-right`),
-			QuoteNamedControlLabelSpanView(layoutPhone, `hospitalMin`, `Hospital`, vars, 4),
-			QuoteNamedControlLabelSpanView(layoutPhone, `dentalMin`, `Dental`, vars, 4),
-
-			QuoteNamedControlOnlySpanView(layoutPhone, `deductibleMax`, vars, 4, `quote-phone-no-label`, `quote-phone-right`),
-			QuoteNamedControlOnlySpanView(layoutPhone, `hospitalMax`, vars, 4, `quote-phone-no-label`),
-			QuoteNamedControlOnlySpanView(layoutPhone, `dentalMax`, vars, 4, `quote-phone-no-label`),
+			Div().Class(`quote-info-layout`).Wrap(
+				Div().Class(`quote-info-body`, `quote-info-grid-desktop`).Wrap(
+					Div().Class(`quote-desk-row`, `quote-desk-row-top`).Wrap(
+						QuoteNamedControlOnlySpanView(layoutDesktop, `clientName`, vars, 0, `quote-desk-no-label`, `quote-desk-name`),
+						QuoteNamedControlOnlySpanView(layoutDesktop, `segment`, vars, 0, `quote-desk-no-label`, `quote-desk-segment`),
+					),
+					Div().Class(`quote-desk-row`, `quote-desk-row-mid`).Wrap(
+						QuoteNamedControlSpanView(layoutDesktop, `birth`, vars, 0, `quote-desk-compact`),
+						QuoteNamedControlSpanView(layoutDesktop, `buy`, vars, 0, `quote-desk-compact`),
+						QuoteNamedControlSpanView(layoutDesktop, `sickCover`, vars, 0, `quote-desk-compact`, `quote-desk-right`),
+					),
+					Div().Class(`quote-desk-row`, `quote-desk-row-mid`).Wrap(
+						QuoteNamedControlSpanView(layoutDesktop, `priorCov`, vars, 0, `quote-desk-compact`),
+						QuoteNamedControlSpanView(layoutDesktop, `exam`, vars, 0, `quote-desk-compact`),
+						QuoteNamedControlSpanView(layoutDesktop, `specref`, vars, 0, `quote-desk-compact`),
+					),
+					Div().Class(`quote-desk-row`, `quote-desk-row-flags`).Wrap(
+						Div().Class(`quote-desk-flags-wrap`).Wrap(
+							Div().Class(`quote-desk-flags`).Wrap(
+								QuoteNamedControlSpanView(layoutDesktop, `vision`, vars, 1, `quote-desk-flag`),
+								QuoteNamedControlSpanView(layoutDesktop, `tempVisa`, vars, 1, `quote-desk-flag`),
+								QuoteNamedControlSpanView(layoutDesktop, `noPVN`, vars, 1, `quote-desk-flag`),
+								QuoteNamedControlSpanView(layoutDesktop, `naturalMed`, vars, 1, `quote-desk-flag`),
+							),
+						),
+					),
+					Div().Class(`quote-desk-row`, `quote-desk-row-bottom`).Wrap(
+						QuoteNamedControlLabelSpanView(layoutDesktop, `deductibleMin`, `Deductible Min`, vars, 0, `quote-desk-compact`, `quote-desk-right`),
+						QuoteNamedControlLabelSpanView(layoutDesktop, `hospitalMin`, `Hospital Min`, vars, 0, `quote-desk-compact`),
+						QuoteNamedControlLabelSpanView(layoutDesktop, `dentalMin`, `Dental Min`, vars, 0, `quote-desk-compact`),
+					),
+					Div().Class(`quote-desk-row`, `quote-desk-row-bottom`).Wrap(
+						QuoteNamedControlOnlySpanView(layoutDesktop, `deductibleMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`, `quote-desk-right`),
+						QuoteNamedControlOnlySpanView(layoutDesktop, `hospitalMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`),
+						QuoteNamedControlOnlySpanView(layoutDesktop, `dentalMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`),
+					),
+				),
 			),
 		),
 		QuotePhoneSelectedPlansBox(vars),

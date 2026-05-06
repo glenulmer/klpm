@@ -2,34 +2,18 @@ package main
 
 import (
 	"net/http"
-	"github.com/mssola/useragent"
 
 	. "klpm/lib/date"
 	. "klpm/lib/htmlHelper"
 	. "klpm/lib/output"
 )
 
-func QuoteCSSPath(layout string) string {
-	if layout == layoutDesktop {
-		return Str(`/static/css/page.1.quote.desktop.css?v=`, App.staticVersion)
-	}
-	return Str(`/static/css/page.1.quote.phone.css?v=`, App.staticVersion)
+func QuoteCSSPath() string {
+	return Str(`/static/css/responsive.css?v=`, App.staticVersion)
 }
 
-func QuotePageView(layout string, vars QuoteVars_t, plans QuotePlans_t) Elem_t {
-	if layout == layoutDesktop { return QuoteDesktopPageView(vars, plans) }
+func QuotePageView(vars QuoteVars_t, plans QuotePlans_t) Elem_t {
 	return QuotePhonePageView(vars, plans)
-}
-
-func QuoteRequestLayout(r *http.Request) string {
-	switch Lower(Trim(r.FormValue(`layout`))) {
-	case layoutPhone:
-		return layoutPhone
-	case layoutDesktop:
-		return layoutDesktop
-	}
-	if useragent.New(r.UserAgent()).Mobile() { return layoutPhone }
-	return layoutDesktop
 }
 
 func queryYesNo(value string) bool {
@@ -145,11 +129,10 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 	Page1QuoteApplyQuery(&state, req)
 	SetState(req, state)
 	plans := QuotePlans(state)
-	layout := QuoteRequestLayout(req)
 
 	head := Head()
 	head = head.
-		CSS(QuoteCSSPath(layout)).
+		CSS(QuoteCSSPath()).
 		CSSTail(Str(`/static/css/page.1.quote.date.css?v=`, App.staticVersion)).
 		JSTail(Str(`/static/js/page.1.quote.date.js?v=`, App.staticVersion)).
 		JSTail(Str(`/static/js/page.1.quote.js?v=`, App.staticVersion)).
@@ -159,7 +142,7 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 	w := Writer(w0)
 	w.Add(
 		head.Left(), NL,
-		QuotePageView(layout, state.quote, plans), NL,
+		QuotePageView(state.quote, plans), NL,
 		head.Right(), NL,
 	)
 }
