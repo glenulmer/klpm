@@ -95,7 +95,7 @@ func QuotePlanCardView(x QuotePlan_t) Elem_t {
 		),
 		Elem(`details`).Class(`quote-plan-addon-details`).Wrap(
 			Elem(`summary`).Class(`quote-plan-addon-title`).Wrap(
-				Span(`Addon Prices`).Class(`quote-plan-addon-title-label`),
+				Span(`Product details`).Class(`quote-plan-addon-title-label`),
 				Span(PriceText(x.base, true)).Class(`quote-plan-addon-title-sum`),
 				Span(PriceText(x.surcharge, true)).Class(`quote-plan-addon-title-sum`),
 			),
@@ -150,7 +150,7 @@ func QuoteSelectedPlanCardView(item QuoteSelectedItem_t, row QuotePlan_t) Elem_t
 		),
 		Elem(`details`).Class(`quote-plan-addon-details`).Wrap(
 			Elem(`summary`).Class(`quote-plan-addon-title`).Wrap(
-				Span(`Addon Prices`).Class(`quote-plan-addon-title-label`),
+				Span(`Product details`).Class(`quote-plan-addon-title-label`),
 				Span(PriceText(row.base, true)).Class(`quote-plan-addon-title-sum`),
 				Span(PriceText(row.surcharge, true)).Class(`quote-plan-addon-title-sum`),
 			),

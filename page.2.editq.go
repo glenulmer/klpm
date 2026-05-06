@@ -41,10 +41,8 @@ func Page2EditQ(w0 http.ResponseWriter, req *http.Request) {
 	EditQDropPreinsertedDependant(&state)
 	SetState(req, state)
 	layout := RequestLayout(req)
-	mode := DeviceModeFromLayout(layout)
 
 	head := Head()
-	head = head.HeadFirstScript(DeviceConfirmHeadScript(mode))
 	head = head.
 		CSS(EditQCSSPath(layout)).
 		JSTail(Str(`/static/js/page.2.editq.js?v=`, App.staticVersion)).

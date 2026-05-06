@@ -240,26 +240,16 @@ func SessionMiddleware(next http.Handler) http.Handler {
 		token, setCookie, created := App.sessionStore.EnsureToken(raw)
 		if setCookie { SetSessionCookie(w, token) }
 
+		isGetHead := r.Method == http.MethodGet || r.Method == http.MethodHead
 		layoutRaw := strings.TrimSpace(r.URL.Query().Get(layoutQuery))
 		layoutSeen := layoutRaw != ``
-		if mode, ok := LayoutModeFromQuery(layoutRaw); ok {
-			App.sessionStore.SetDevice(token, mode, true)
-			SetDeviceCookie(w, mode)
-		} else if c, _ := r.Cookie(deviceCookie); c != nil {
-			if mode, ok := NormalizeDeviceMode(c.Value); ok {
+		if isGetHead && layoutSeen {
+			if mode, ok := LayoutModeFromQuery(layoutRaw); ok {
 				App.sessionStore.SetDevice(token, mode, true)
+				SetDeviceCookie(w, mode)
 			}
-		}
-		if layoutSeen && (r.Method == http.MethodGet || r.Method == http.MethodHead) {
 			http.Redirect(w, r, PathWithoutLayoutQuery(r), http.StatusSeeOther)
 			return
-		}
-
-		mode, confirmed := App.sessionStore.GetDevice(token)
-		if !confirmed && created {
-			if mode == deviceDesktop {
-				App.sessionStore.SetDevice(token, UAMode(r), false)
-			}
 		}
 
 		ctx := context.WithValue(r.Context(), sessionCtxKey, token)

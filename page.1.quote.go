@@ -134,10 +134,8 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 	SetState(req, state)
 	plans := QuotePlans(state)
 	layout := RequestLayout(req)
-	mode := DeviceModeFromLayout(layout)
 
 	head := Head()
-	head = head.HeadFirstScript(DeviceConfirmHeadScript(mode))
 	head = head.
 		CSS(QuoteCSSPath(layout)).
 		CSSTail(Str(`/static/css/page.1.quote.date.css?v=`, App.staticVersion)).

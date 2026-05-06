@@ -662,7 +662,10 @@ details[open] > .quote-phone-fold-title::before {
 	padding: 0.34rem 0.5rem;
 	background: #edf5fd;
 	cursor: pointer;
+	list-style: none;
 }
+
+.quote-plan-addon-title::-webkit-details-marker { display: none; }
 
 .quote-plan-addon-title-label,
 .quote-plan-addon-title-sum {
@@ -670,6 +673,26 @@ details[open] > .quote-phone-fold-title::before {
 	font-weight: 700;
 	color: #1f324b;
 }
+
+.quote-plan-addon-title-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.24rem;
+}
+
+.quote-plan-addon-title-label::before {
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 0.2rem solid transparent;
+	border-bottom: 0.2rem solid transparent;
+	border-left: 0.3rem solid currentColor;
+	opacity: 0.9;
+	transform-origin: 38% 50%;
+	transition: transform 120ms ease;
+}
+
+.quote-plan-addon-details[open] .quote-plan-addon-title-label::before { transform: rotate(90deg); }
 
 .quote-plan-addon-title-sum {
 	text-align: right;

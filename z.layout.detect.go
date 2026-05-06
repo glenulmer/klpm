@@ -28,8 +28,12 @@ func DeviceConfirmHeadScript(mode string) string {
 		`var s="`, x, `";`,
 		`var d=(window.innerWidth<900)?"mobile":"desktop";`,
 		`if(d===s){return;}`,
-		`document.cookie="device="+d+"; path=/; max-age=31536000; samesite=lax";`,
-		`if(document.cookie.indexOf("device="+d)>=0){location.replace(location.href);}`,
+		`if(location.search.indexOf("layout=")>=0){return;}`,
+		`var q=location.search?location.search.slice(1):"";`,
+		`var sep=q?"&":"";`,
+		`var lay=d==="mobile"?"phone":"desktop";`,
+		`var u=location.pathname+"?"+q+sep+"layout="+lay+location.hash;`,
+		`location.replace(u);`,
 		`})();`,
 	)
 }
