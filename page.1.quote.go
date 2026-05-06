@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"github.com/mssola/useragent"
 
 	. "klpm/lib/date"
 	. "klpm/lib/htmlHelper"
@@ -18,6 +19,17 @@ func QuoteCSSPath(layout string) string {
 func QuotePageView(layout string, vars QuoteVars_t, plans QuotePlans_t) Elem_t {
 	if layout == layoutDesktop { return QuoteDesktopPageView(vars, plans) }
 	return QuotePhonePageView(vars, plans)
+}
+
+func QuoteRequestLayout(r *http.Request) string {
+	switch Lower(Trim(r.FormValue(`layout`))) {
+	case layoutPhone:
+		return layoutPhone
+	case layoutDesktop:
+		return layoutDesktop
+	}
+	if useragent.New(r.UserAgent()).Mobile() { return layoutPhone }
+	return layoutDesktop
 }
 
 func queryYesNo(value string) bool {
@@ -133,7 +145,7 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 	Page1QuoteApplyQuery(&state, req)
 	SetState(req, state)
 	plans := QuotePlans(state)
-	layout := RequestLayout(req)
+	layout := QuoteRequestLayout(req)
 
 	head := Head()
 	head = head.

@@ -12,6 +12,31 @@
 	let phoneStickyOn = false;
 
 	const phoneStickyGapPx = 0;
+	const isPhoneViewport = () => window.innerWidth < 900;
+	const viewportLayout = () => isPhoneViewport() ? 'phone' : 'desktop';
+	const domLayout = () => document.querySelector('.quote-page-phone') ? 'phone' : 'desktop';
+	const layoutURL = (layout) => {
+		const u = new URL(window.location.href);
+		u.searchParams.set('layout', layout);
+		return u.toString();
+	};
+	const cleanLayoutParam = () => {
+		const u = new URL(window.location.href);
+		if (!u.searchParams.has('layout')) return;
+		u.searchParams.delete('layout');
+		const q = u.searchParams.toString();
+		history.replaceState(null, '', `${u.pathname}${q ? `?${q}` : ''}${u.hash}`);
+	};
+	const ensureViewportLayout = () => {
+		const want = viewportLayout();
+		const have = domLayout();
+		if (want === have) {
+			cleanLayoutParam();
+			return false;
+		}
+		window.location.replace(layoutURL(want));
+		return true;
+	};
 
 	const captureFoldStates = () => {
 		for (const id of foldIds) {
@@ -76,6 +101,10 @@
 		const plans = document.getElementById('QuotePlans');
 		if (!(info instanceof HTMLDetailsElement) || !(selected instanceof HTMLDetailsElement) || !(anchor instanceof HTMLElement) || !(plans instanceof HTMLElement)) {
 			phoneStickyOn = false;
+			return;
+		}
+		if (!isPhoneViewport()) {
+			if (phoneStickyOn) setPhoneSticky(info, selected, false);
 			return;
 		}
 		if (window.scrollY <= 0) {
@@ -149,6 +178,7 @@
 		const form = new FormData();
 		form.append('name', name);
 		form.append('value', value);
+		form.append('layout', viewportLayout());
 
 		fetch('/quote-info-change', {
 			method: 'POST',
@@ -276,7 +306,11 @@
 	document.addEventListener('toggle', onFoldToggle, true);
 	document.addEventListener('click', onFoldSummaryClick, true);
 	window.addEventListener('scroll', scheduleStickySync, { passive: true });
-	window.addEventListener('resize', scheduleStickySync);
+	window.addEventListener('resize', () => {
+		if (ensureViewportLayout()) return;
+		scheduleStickySync();
+	});
+	if (ensureViewportLayout()) return;
 	initSickCover();
 	initDateControls();
 	scheduleStickySync();

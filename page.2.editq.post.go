@@ -10,8 +10,7 @@ import (
 func RewriteEditQPage(w http.ResponseWriter, req *http.Request, state State_t) {
 	QuoteEnsureDefaults(&state)
 	vars := state.quote
-	layout := RequestLayout(req)
-	body := EditQBodyView(layout, vars, false)
+	body := EditQBodyView(vars, false)
 	SendResponse(w, RewriteHTML(OuterHTML, `EditQFormBody`, body))
 }
 

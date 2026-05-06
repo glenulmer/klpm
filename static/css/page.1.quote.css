@@ -1,0 +1,75 @@
+@import url('/static/css/page.1.quote.phone.css');
+
+@media (min-width: 56.25rem) {
+	body {
+		margin: 0;
+		padding: 0.75rem;
+		background: #fbfaf7;
+		color: #474747;
+	}
+
+	.quote-page-phone {
+		max-width: 96rem;
+		padding: 0;
+	}
+
+	.quote-grid-phone {
+		gap: 0.55rem 0.75rem;
+	}
+
+	.quote-phone-info-fold,
+	.quote-phone-selected-card,
+	.quote-phone-plans-fold,
+	.quote-filter-box {
+		margin-bottom: 0.65rem;
+	}
+
+	.quote-phone-plans-body {
+		margin-top: 0;
+	}
+
+	.quote-plan-list,
+	.quote-phone-selected-list,
+	.quote-filtered-list {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.quote-plan-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.quote-phone-selected-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.quote-filtered-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.quote-plan-card,
+	.quote-filtered-plan {
+		border: 0.0625rem solid #d6cfbb;
+		border-radius: 0.625rem;
+		background: #fffdf8;
+	}
+
+	.quote-filtered-plan {
+		padding: 0.5rem;
+	}
+}
+
+@media (min-width: 72rem) {
+	.quote-plan-list,
+	.quote-phone-selected-list,
+	.quote-filtered-list {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 56.25rem) and (max-width: 72rem) {
+	.quote-grid-phone .quote-span-4,
+	.quote-grid-phone .quote-span-8 {
+		grid-column: span 6;
+	}
+}

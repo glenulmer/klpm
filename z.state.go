@@ -13,8 +13,6 @@ type State_t struct {
 type SessionVars_t struct {
 	user UserInfo_t
 	quote QuoteVars_t
-	device string
-	deviceConfirmed bool
 }
 
 func InitState() State_t {

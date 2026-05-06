@@ -11,7 +11,7 @@ func RewriteQuotePage(w http.ResponseWriter, req *http.Request, state State_t) {
 	QuoteEnsureDefaults(&state)
 	vars := state.quote
 	plans := QuotePlans(state)
-	layout := RequestLayout(req)
+	layout := QuoteRequestLayout(req)
 	form := any(QuotePhoneFormBodyView(vars))
 	planView := any(QuotePhonePlansView(plans))
 	if layout == layoutDesktop {
