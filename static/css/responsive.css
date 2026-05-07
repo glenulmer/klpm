@@ -4,6 +4,11 @@ body {
 	padding: 0;
 }
 
+html {
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+}
+
 body {
 	background: #f3f4f6;
 	color: #1d2430;
@@ -11,11 +16,18 @@ body {
 }
 
 :root {
+	--app-phone-max: 26.875rem;
+	--app-title-pad: 0.38rem 0.52rem;
+	--app-title-size: 1rem;
+	--app-title-weight: 700;
+	--app-btn-height: 1.1rem;
 	--quote-select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%233b4f6a' d='M1.4 1.2 6 5.8l4.6-4.6L12 2.6 6 8 0 2.6z'/%3E%3C/svg%3E");
 }
 
 .quote-page-phone {
-	max-width: 26.875rem;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: var(--app-phone-max);
 	margin: 0 auto;
 	padding: 0 0.75rem 0.75rem;
 }
@@ -40,11 +52,11 @@ body {
 
 .quote-card-title {
 	margin: 0;
-	padding: 0.38rem 0.52rem;
+	padding: var(--app-title-pad);
 	background: #e6f2fc;
 	color: #0e1a2a;
-	font-size: 1rem;
-	font-weight: 700;
+	font-size: var(--app-title-size);
+	font-weight: var(--app-title-weight);
 }
 
 .quote-phone-fold-title {
@@ -109,7 +121,7 @@ details[open] > .quote-phone-fold-title::before {
 }
 
 .quote-edit-quote-btn {
-	height: 1.1rem;
+	height: var(--app-btn-height);
 	padding: 0 0.48rem;
 	border: 0.0625rem solid #8ca8c9;
 	border-radius: 0.3rem;
@@ -118,7 +130,7 @@ details[open] > .quote-phone-fold-title::before {
 	font-family: inherit;
 	font-size: 0.72rem;
 	font-weight: 700;
-	line-height: calc(1.1rem - 0.125rem);
+	line-height: calc(var(--app-btn-height) - 0.125rem);
 	white-space: nowrap;
 	cursor: pointer;
 	display: inline-block;
@@ -146,7 +158,8 @@ details[open] > .quote-phone-fold-title::before {
 	position: fixed;
 	left: 50%;
 	transform: translateX(-50%);
-	width: min(26.875rem, calc(100vw - 0.5rem));
+	box-sizing: border-box;
+	width: calc(min(var(--app-phone-max), 100vw) - 1.5rem);
 	top: 0;
 	z-index: 60;
 	margin: 0;

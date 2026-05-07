@@ -1,0 +1,1235 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+}
+
+body {
+	background: #f3f4f6;
+	color: #1d2430;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+	--app-phone-max: 26.875rem;
+	--app-title-pad: 0.38rem 0.52rem;
+	--app-title-size: 1rem;
+	--app-title-weight: 700;
+	--app-btn-height: 1.1rem;
+}
+
+.editq-page {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: var(--app-phone-max);
+	margin: 0 auto;
+	padding: 0 0.75rem 0.75rem;
+}
+
+.editq-body {
+	display: grid;
+	gap: 0;
+}
+
+.editq-fold-card,
+.editq-dependant {
+	border: 0.0625rem solid #b9c3cf;
+	border-radius: 0.625rem;
+	background: #f8fcff;
+	overflow: hidden;
+}
+
+.editq-card-title {
+	margin: 0;
+	padding: var(--app-title-pad);
+	background: #e6f2fc;
+	color: #0e1a2a;
+	font-size: var(--app-title-size);
+	font-weight: var(--app-title-weight);
+}
+
+.editq-card-title-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.45rem;
+}
+
+.editq-card-title-text {
+	display: block;
+}
+
+.editq-card-title-right {
+	display: flex;
+	align-items: center;
+	gap: 0.32rem;
+	position: relative;
+	z-index: 1;
+}
+
+.editq-title-btn {
+	display: inline-flex;
+	align-items: center;
+	height: var(--app-btn-height);
+	padding: 0 0.48rem;
+	border: 0.0625rem solid #8ca8c9;
+	border-radius: 0.3rem;
+	background: #f3f8ff;
+	color: #1f3e63;
+	text-decoration: none;
+	font-family: inherit;
+	font-size: 0.72rem;
+	font-weight: 700;
+	line-height: calc(var(--app-btn-height) - 0.125rem);
+	white-space: nowrap;
+	box-sizing: border-box;
+	appearance: none;
+	-webkit-appearance: none;
+	padding-top: 0;
+	padding-bottom: 0;
+	vertical-align: middle;
+}
+
+.editq-fold-title {
+	list-style: none;
+	cursor: pointer;
+	position: relative;
+	text-align: left;
+}
+
+.editq-fold-title::-webkit-details-marker {
+	display: none;
+}
+
+.editq-fold-title::marker {
+	content: "";
+}
+
+.editq-fold-title::before {
+	content: "";
+	position: absolute;
+	left: 0.4rem;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border-top: 0.28rem solid transparent;
+	border-bottom: 0.28rem solid transparent;
+	border-left: 0.42rem solid #43536b;
+	transform: translateY(-50%);
+}
+
+details[open] > .editq-fold-title::before {
+	transform: translateY(-50%) rotate(90deg);
+}
+
+.editq-fold-card > .editq-fold-title {
+	padding-left: 1.15rem;
+}
+
+.editq-card-body {
+	padding: 0.55rem;
+	border-top: 0.0625rem solid #d5deea;
+	background: #fcfdff;
+	display: grid;
+	gap: 0.48rem;
+}
+
+.editq-header {
+	display: grid;
+	gap: 0.48rem;
+}
+
+/* dead selector:
+.editq-cust-preview {
+	font-size: 0.77rem;
+	color: #36506a;
+}
+*/
+
+/* dead selector:
+.editq-cust-empty {
+	color: #607385;
+}
+*/
+
+.editq-section-title {
+	font-size: 0.85rem;
+	font-weight: 700;
+	margin-bottom: 0.45rem;
+}
+
+.editq-preex-charges {
+	padding-right: 0.9rem;
+}
+
+/* dead selector was removed from this live block: .editq-preex-cond-list */
+.editq-dependant-list {
+	display: grid;
+	gap: 0.42rem;
+}
+
+.editq-preex-list {
+	display: grid;
+	gap: 0.22rem;
+}
+
+.editq-preex-row {
+	display: grid;
+	grid-template-columns: 4.8rem minmax(0, 1fr);
+	gap: 0.35rem;
+	align-items: center;
+}
+
+.editq-preex-plan {
+	margin-top: 0.35rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #2a4158;
+	display: block;
+	padding-right: 0;
+}
+
+.editq-preex-plan-head {
+	display: block;
+}
+
+.editq-preex-plan-age {
+	margin-top: 0.1rem;
+	font-size: 0.68rem;
+	font-weight: 400;
+	color: #4c6278;
+	text-align: left;
+}
+
+.editq-preex-categ {
+	font-size: 0.72rem;
+	font-weight: 400;
+}
+
+.editq-preex-inputs {
+	display: grid;
+	grid-template-columns: 3.2rem 4.5rem minmax(0, 1fr);
+	gap: 0.38rem;
+	align-items: center;
+	min-width: 0;
+}
+
+.editq-preex-mode,
+.editq-preex-amount,
+.editq-preex-note {
+	width: 100%;
+	min-width: 0;
+}
+
+.editq-preex-inputs :is(input[type="text"], select) {
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: 0.34rem 0.36rem;
+	border: 0.0625rem solid #b1c4d7;
+	border-radius: 0.33rem;
+	background: #fff;
+	font-size: 0.72rem;
+}
+
+.editq-preex-mode {
+	padding-left: 0.42rem;
+	padding-right: 1rem;
+}
+
+.editq-preex-empty {
+	font-size: 0.77rem;
+	color: #617587;
+}
+
+.editq-preex-amount-input {
+	text-align: right;
+}
+
+/* dead selector:
+.editq-preex-plan-total {
+	color: #1e6996;
+}
+*/
+
+/* dead selector:
+.editq-preex-plan-charges {
+	color: #1e6996;
+}
+*/
+
+/* dead selector:
+.editq-preex-plan-sum {
+	color: #165581;
+	font-weight: 700;
+}
+*/
+
+/* dead selector:
+.editq-preex-plan-op {
+	color: #4f6479;
+}
+*/
+
+.editq-preex-summary {
+	padding: 0.08rem 0;
+}
+
+.editq-preex-summary-base {
+	color: #1f1f1f;
+	font-size: 0.72rem;
+	font-style: italic;
+}
+
+.editq-preex-summary-preex {
+	color: #1e6996;
+	font-size: 0.72rem;
+	font-style: italic;
+	text-align: right;
+	padding-right: 0.36rem;
+	box-sizing: border-box;
+}
+
+.editq-preex-summary-sum {
+	text-align: left;
+	color: #1f1f1f;
+	font-weight: 700;
+	font-size: 0.72rem;
+	font-style: italic;
+}
+
+.editq-preex-cond-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.38rem;
+	align-items: start;
+}
+
+/* dead selector:
+.editq-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.22rem;
+}
+*/
+
+/* dead selector:
+.editq-label {
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #38526d;
+}
+*/
+
+/* dead selector was removed from this live block: .editq-field :is(input[type="text"], input[type="date"]) */
+.editq-grow-input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.45rem 0.5rem;
+	border: 0.0625rem solid #b1c4d7;
+	border-radius: 0.4rem;
+	background: #fff;
+	color: inherit;
+	font: inherit;
+	font-size: 0.86rem;
+}
+
+.editq-grow-input {
+	min-height: 2.1rem;
+	resize: none;
+	overflow: hidden;
+	white-space: pre-wrap;
+}
+
+.editq-add-btn,
+.editq-del-btn {
+	height: 2.1rem;
+	padding: 0 0.62rem;
+	border: 0.0625rem solid #90a9c3;
+	border-radius: 0.38rem;
+	background: #edf5ff;
+	color: #20456c;
+	font-family: inherit;
+	font-size: 0.79rem;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.editq-add-btn {
+	width: auto;
+	min-height: 2.1rem;
+	height: auto;
+	padding: 0.2rem 0.25rem;
+	line-height: 1.05;
+	white-space: normal;
+	word-break: break-word;
+	justify-self: start;
+}
+
+.editq-del-btn {
+	min-width: 2.1rem;
+	padding: 0;
+}
+
+/* dead selector:
+.editq-dependant-head .editq-del-btn {
+	height: 1.52rem;
+	min-width: 1.52rem;
+	font-size: 0.66rem;
+	border-radius: 0.3rem;
+}
+*/
+
+.editq-dependant {
+	padding: 0.55rem;
+	display: grid;
+	gap: 0.5rem;
+	background: #fcfdff;
+}
+
+/* dead selector:
+.editq-dependant-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 0.4rem;
+}
+*/
+
+/* dead selector:
+.editq-dependant-head-text {
+	display: grid;
+	gap: 0.08rem;
+}
+*/
+
+/* dead selector:
+.editq-dependant-title {
+	font-size: 0.81rem;
+	font-weight: 700;
+}
+*/
+
+.editq-dependant-fields-row {
+	display: flex;
+	gap: 0.2rem;
+	align-items: center;
+}
+
+.editq-dep-name,
+.editq-dep-birth {
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: 0.45rem 0.5rem;
+	border: 0.0625rem solid #b1c4d7;
+	border-radius: 0.4rem;
+	background: #fff;
+	color: inherit;
+	font: inherit;
+	font-size: 0.86rem;
+}
+
+.editq-section {
+	padding: 0;
+}
+
+.editq-review {
+	display: grid;
+	gap: 0.4rem;
+}
+
+.editq-review-client,
+.editq-review-plan {
+	border: 0.0625rem solid #d4deea;
+	border-radius: 0.38rem;
+	background: #fbfdff;
+	padding: 0.38rem 0.42rem;
+}
+
+.editq-review-client {
+	display: grid;
+	gap: 0.24rem;
+}
+
+.editq-review-client-name {
+	font-size: 0.76rem;
+	font-weight: 700;
+}
+
+.editq-review-client-grid {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	column-gap: 0.46rem;
+	row-gap: 0.12rem;
+}
+
+.editq-review-client-key {
+	font-size: 0.66rem;
+	font-weight: 700;
+	color: #425a73;
+}
+
+.editq-review-client-val {
+	font-size: 0.66rem;
+}
+
+.editq-review-plans {
+	display: grid;
+	gap: 0.4rem;
+}
+
+.editq-review-plan {
+	display: grid;
+	gap: 0.24rem;
+}
+
+.editq-review-plan-title {
+	font-size: 0.72rem;
+	font-weight: 700;
+}
+
+.editq-review-plan-meta {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.4rem;
+	font-size: 0.61rem;
+	color: #4a6078;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.editq-review-plan-meta > span {
+	white-space: nowrap;
+}
+
+.editq-review-grid {
+	display: grid;
+	gap: 0;
+}
+
+.editq-review-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 3.7rem 3.7rem 3.7rem 3.7rem;
+	column-gap: 0.18rem;
+	align-items: baseline;
+	padding: 0.08rem 0;
+	border-top: 0.0625rem solid #e6ecf3;
+}
+
+.editq-review-row:first-child {
+	border-top: 0;
+}
+
+.editq-review-row-head {
+	font-size: 0.6rem;
+	font-weight: 700;
+	color: #445d78;
+}
+
+.editq-review-row-total {
+	font-weight: 700;
+	color: #2f4f69;
+}
+
+.editq-review-col-label {
+	font-size: 0.64rem;
+	min-width: 0;
+}
+
+.editq-review-col-money {
+	font-size: 0.63rem;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.editq-review-col-preex {
+	color: #1e6996;
+}
+
+.editq-review-empty {
+	font-size: 0.72rem;
+	color: #5a7088;
+}
+
+.editq-dep-name {
+	flex: 1 1 auto;
+}
+
+.editq-dep-birth {
+	flex: 0 0 6.25rem;
+	max-width: 6.25rem;
+	padding-left: 0.35rem;
+	padding-right: 0.2rem;
+	font-size: 0.78rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.editq-check {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0 0.2rem;
+	white-space: nowrap;
+	justify-content: flex-start;
+}
+
+.editq-check input[type="checkbox"] {
+	width: 0.98rem;
+	height: 0.98rem;
+	margin: 0;
+}
+
+.editq-dep-vision {
+	flex: 0 0 1.9rem;
+	width: 1.9rem;
+	padding: 0;
+	gap: 0.15rem;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+.editq-dep-vision input[type="checkbox"] {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+.editq-dep-vision .editq-check-text {
+	font-size: 0.55rem;
+}
+
+.editq-dep-del {
+	height: 1.2rem;
+	min-width: 1.2rem;
+	font-size: 0.66rem;
+	border-radius: 0.3rem;
+	align-self: center;
+}
+
+.editq-dependant-preex {
+	margin-top: 0.05rem;
+	padding-right: 0.9rem;
+}
+
+.editq-add-dependant {
+	width: 20%;
+}
+
+.editq-check-text {
+	font-size: 0.82rem;
+}
+
+
+@media (min-width: 56.25rem) {
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	:root {
+		--editq-bg: #fbfaf7;
+		--editq-text: #474747;
+		--editq-card-border: #d6cfbb;
+		--editq-card-bg: #fffdf8;
+		--editq-card-head-bg: #fff4d5;
+		--editq-card-head-text: #2f2f2f;
+		--editq-line: #ece3c6;
+		--editq-input-border: #b7b7b7;
+		--editq-muted: #6e6e6e;
+		--editq-subtle: #5e5e5e;
+		--editq-btn-border: #b7b7b7;
+		--editq-btn-bg: #fff;
+		--editq-btn-text: #4f4f4f;
+		--editq-accent: #7b6732;
+	}
+	
+	body {
+		background: var(--editq-bg);
+		color: var(--editq-text);
+		font-family: "Helvetica Neue", Arial, sans-serif;
+	}
+	
+	.editq-page {
+		max-width: 37rem;
+		margin: 0;
+		padding: 0 1rem 1.2rem;
+	}
+	
+	.editq-body {
+		display: grid;
+		gap: 0;
+	}
+	
+	.editq-fold-card,
+	.editq-dependant {
+		border: 0.0625rem solid var(--editq-card-border);
+		border-radius: 0.625rem;
+		background: var(--editq-card-bg);
+		overflow: hidden;
+	}
+	
+	.editq-card-title {
+		margin: 0;
+		padding: 0.38rem 0.52rem;
+		background: var(--editq-card-head-bg);
+		color: var(--editq-card-head-text);
+		font-size: 1rem;
+		font-weight: 700;
+	}
+	
+	.editq-card-title-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+	
+	.editq-card-title-text {
+		display: block;
+	}
+	
+	.editq-card-title-right {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		position: relative;
+		z-index: 1;
+	}
+	
+	.editq-title-btn {
+		display: inline-flex;
+		align-items: center;
+		height: 1.1rem;
+		padding: 0 0.48rem;
+		border: 0.0625rem solid var(--editq-btn-border);
+		border-radius: 0.3rem;
+		background: var(--editq-btn-bg);
+		color: var(--editq-btn-text);
+		text-decoration: none;
+		font-family: inherit;
+		font-size: 0.72rem;
+		font-weight: 700;
+		line-height: 1;
+		white-space: nowrap;
+	}
+	
+	.editq-fold-title {
+		list-style: none;
+		cursor: pointer;
+		position: relative;
+		text-align: left;
+	}
+	
+	.editq-fold-title::-webkit-details-marker {
+		display: none;
+	}
+	
+	.editq-fold-title::marker {
+		content: "";
+	}
+	
+	.editq-fold-title::before {
+		content: "";
+		position: absolute;
+		left: 0.4rem;
+		top: 50%;
+		width: 0;
+		height: 0;
+		border-top: 0.28rem solid transparent;
+		border-bottom: 0.28rem solid transparent;
+		border-left: 0.42rem solid #7b6732;
+		transform: translateY(-50%);
+	}
+	
+	details[open] > .editq-fold-title::before {
+		transform: translateY(-50%) rotate(90deg);
+	}
+	
+	.editq-fold-card > .editq-fold-title {
+		padding-left: 1.15rem;
+	}
+	
+	.editq-card-body {
+		padding: 0.62rem;
+		border-top: 0.0625rem solid var(--editq-line);
+		background: var(--editq-card-bg);
+		display: grid;
+		gap: 0.55rem;
+	}
+	
+	.editq-header {
+		display: grid;
+		gap: 0.6rem;
+	}
+	
+	/* dead selector:
+	.editq-cust-preview {
+		font-size: 0.8rem;
+		color: #324860;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-cust-empty {
+		color: #5f7286;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-main {
+		display: grid;
+		grid-template-columns: 1fr 1.12fr;
+		gap: 0.8rem;
+		align-items: start;
+	}
+	*/
+	
+	.editq-section {
+		padding: 0;
+	}
+	
+	.editq-section-title {
+		font-size: 0.88rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+	}
+	
+	.editq-preex-charges {
+		padding-right: 1rem;
+	}
+	
+	/* dead selector was removed from this live block: .editq-preex-cond-list */
+	.editq-dependant-list {
+		display: grid;
+		gap: 0.45rem;
+	}
+	
+	.editq-preex-list {
+		display: grid;
+		gap: 0.28rem;
+	}
+	
+	.editq-preex-row {
+		display: grid;
+		grid-template-columns: 6.8rem minmax(0, 1fr);
+		gap: 0.45rem;
+		align-items: center;
+	}
+	
+	.editq-preex-plan {
+		margin-top: 0.45rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #4f4f4f;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding-right: 0.28rem;
+	}
+	
+	.editq-preex-plan-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.34rem;
+	}
+	
+	.editq-preex-plan-age {
+		margin-top: 0.12rem;
+		font-size: 0.7rem;
+		font-weight: 400;
+		color: var(--editq-muted);
+	}
+	
+	.editq-preex-categ {
+		font-size: 0.75rem;
+		font-weight: 400;
+	}
+	
+	.editq-preex-inputs {
+		display: grid;
+		grid-template-columns: 3.2rem 6.1rem minmax(0, 1fr);
+		gap: 0.5rem;
+		min-width: 0;
+	}
+	
+	.editq-preex-mode,
+	.editq-preex-amount,
+	.editq-preex-note {
+		width: 100%;
+		min-width: 0;
+	}
+	
+	.editq-preex-inputs :is(input[type="text"], select) {
+		width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+		padding: 0.34rem 0.4rem;
+		border: 0.0625rem solid var(--editq-input-border);
+		border-radius: 0.32rem;
+		background: #fff;
+		font-size: 0.75rem;
+	}
+	
+	.editq-preex-empty {
+		font-size: 0.8rem;
+		color: var(--editq-muted);
+	}
+	
+	.editq-preex-amount-input {
+		text-align: right;
+	}
+	
+	/* dead selector:
+	.editq-preex-plan-total {
+		color: #1e6996;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-preex-plan-charges {
+		color: #1e6996;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-preex-plan-sum {
+		color: #165581;
+		font-weight: 700;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-preex-plan-op {
+		color: #4f6479;
+	}
+	*/
+	
+	.editq-preex-summary {
+		padding: 0.1rem 0;
+	}
+	
+	.editq-preex-summary-base {
+		color: #1f1f1f;
+		font-size: 0.75rem;
+		font-style: italic;
+	}
+	
+	.editq-preex-summary-preex {
+		color: var(--editq-accent);
+		font-size: 0.75rem;
+		font-style: italic;
+		text-align: right;
+		padding-right: 0.4rem;
+		box-sizing: border-box;
+	}
+	
+	.editq-preex-summary-sum {
+		text-align: left;
+		color: var(--editq-card-head-text);
+		font-weight: 700;
+		font-size: 0.75rem;
+		font-style: italic;
+	}
+	
+	.editq-preex-cond-row {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.45rem;
+		align-items: start;
+	}
+	
+	.editq-preex-cond-text,
+	.editq-preex-cond-del {
+		min-width: 0;
+	}
+	
+	/* dead selector:
+	.editq-field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.26rem;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-label {
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #37506b;
+	}
+	*/
+	
+	/* dead selector was removed from this live block: .editq-field :is(input[type="text"], input[type="date"]) */
+	.editq-grow-input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.4rem 0.48rem;
+		border: 0.0625rem solid var(--editq-input-border);
+		border-radius: 0.34rem;
+		background: #fff;
+		color: inherit;
+		font: inherit;
+		font-size: 0.82rem;
+	}
+	
+	.editq-grow-input {
+		min-height: 2.125rem;
+		resize: none;
+		overflow: hidden;
+		white-space: pre-wrap;
+	}
+	
+	.editq-add-btn,
+	.editq-del-btn {
+		height: 2.125rem;
+		padding: 0 0.6rem;
+		border: 0.0625rem solid var(--editq-btn-border);
+		border-radius: 0.34rem;
+		background: #fff8e6;
+		color: var(--editq-btn-text);
+		font-family: inherit;
+		font-size: 0.78rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+	
+	.editq-del-btn {
+		min-width: 2.125rem;
+		padding: 0;
+	}
+	
+	/* dead selector:
+	.editq-dependant-head .editq-del-btn {
+		height: 1.55rem;
+		min-width: 1.55rem;
+		font-size: 0.67rem;
+		border-radius: 0.28rem;
+	}
+	*/
+	
+	.editq-dependant {
+		padding: 0.62rem;
+		display: grid;
+		gap: 0.55rem;
+		background: var(--editq-card-bg);
+	}
+	
+	/* dead selector:
+	.editq-dependant-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.45rem;
+	}
+	*/
+	
+	/* dead selector:
+	.editq-dependant-title {
+		font-size: 0.82rem;
+		font-weight: 700;
+	}
+	*/
+	
+	.editq-dependant-fields-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 8.8rem 3rem 1.55rem;
+		gap: 0.5rem;
+		align-items: center;
+	}
+	
+	.editq-review {
+		display: grid;
+		gap: 0.5rem;
+	}
+	
+	.editq-review-client,
+	.editq-review-plan {
+		border: 0.0625rem solid var(--editq-card-border);
+		border-radius: 0.4rem;
+		background: #fffef8;
+		padding: 0.45rem 0.5rem;
+	}
+	
+	.editq-review-client {
+		display: grid;
+		gap: 0.3rem;
+	}
+	
+	.editq-review-client-name {
+		font-size: 0.82rem;
+		font-weight: 700;
+	}
+	
+	.editq-review-client-grid {
+		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr);
+		column-gap: 0.6rem;
+		row-gap: 0.16rem;
+	}
+	
+	.editq-review-client-key {
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--editq-subtle);
+	}
+	
+	.editq-review-client-val {
+		font-size: 0.72rem;
+	}
+	
+	.editq-review-plans {
+		display: grid;
+		gap: 0.5rem;
+	}
+	
+	.editq-review-plan {
+		display: grid;
+		gap: 0.3rem;
+	}
+	
+	.editq-review-plan-title {
+		font-size: 0.78rem;
+		font-weight: 700;
+	}
+	
+	.editq-review-plan-meta {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 0.7rem;
+		font-size: 0.7rem;
+		color: var(--editq-muted);
+		white-space: nowrap;
+	}
+	
+	.editq-review-plan-meta > span {
+		white-space: nowrap;
+	}
+	
+	.editq-review-grid {
+		display: grid;
+		gap: 0;
+	}
+	
+	.editq-review-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 5.5rem 5.5rem 5.5rem 5.5rem;
+		column-gap: 0.35rem;
+		align-items: baseline;
+		padding: 0.12rem 0;
+		border-top: 0.0625rem solid var(--editq-line);
+	}
+	
+	.editq-review-row:first-child {
+		border-top: 0;
+	}
+	
+	.editq-review-row-head {
+		font-size: 0.67rem;
+		font-weight: 700;
+		color: var(--editq-subtle);
+	}
+	
+	.editq-review-row-total {
+		font-weight: 700;
+		color: var(--editq-card-head-text);
+	}
+	
+	.editq-review-col-label {
+		font-size: 0.72rem;
+		min-width: 0;
+	}
+	
+	.editq-review-col-money {
+		font-size: 0.72rem;
+		text-align: right;
+		white-space: nowrap;
+	}
+	
+	.editq-review-col-preex {
+		color: var(--editq-accent);
+	}
+	
+	.editq-review-empty {
+		font-size: 0.78rem;
+		color: var(--editq-muted);
+	}
+	
+	.editq-dep-name,
+	.editq-dep-birth {
+		width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+		padding: 0.4rem 0.48rem;
+		border: 0.0625rem solid var(--editq-input-border);
+		border-radius: 0.34rem;
+		background: #fff;
+		color: inherit;
+		font: inherit;
+		font-size: 0.82rem;
+	}
+	
+	.editq-check {
+		display: flex;
+		align-items: center;
+		gap: 0.32rem;
+		height: 2.125rem;
+		padding: 0 0.25rem;
+	}
+	
+	.editq-check input[type="checkbox"] {
+		width: 0.95rem;
+		height: 0.95rem;
+		margin: 0;
+	}
+	
+	.editq-check-text {
+		font-size: 0.8rem;
+	}
+	
+	.editq-dep-vision {
+		padding: 0;
+		gap: 0.16rem;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+	
+	.editq-dep-vision input[type="checkbox"] {
+		width: 1rem;
+		height: 1rem;
+	}
+	
+	.editq-dep-vision .editq-check-text {
+		font-size: 0.62rem;
+		text-align: center;
+	}
+	
+	.editq-dep-del {
+		height: 1.55rem;
+		min-width: 1.55rem;
+		font-size: 0.67rem;
+		border-radius: 0.28rem;
+		align-self: center;
+		justify-self: center;
+	}
+	
+	.editq-dependant-preex {
+		padding-right: 1rem;
+	}
+	
+	.editq-add-dependant {
+		margin-top: 0.1rem;
+		width: 25%;
+	}
+}

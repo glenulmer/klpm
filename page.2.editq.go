@@ -8,7 +8,7 @@ import (
 )
 
 func EditQCSSPath() string {
-	return Str(`/static/css/page.2.editq.css?v=`, App.staticVersion)
+	return Str(`/static/css/responsive2.css?v=`, App.staticVersion)
 }
 
 func EditQBodyView(vars QuoteVars_t, sortForGet bool) Elem_t {
