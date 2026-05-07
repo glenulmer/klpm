@@ -1,0 +1,98 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+}
+
+body {
+	background: #f3f4f6;
+	color: #1d2430;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+	--app-phone-max: 26.875rem;
+	--app-title-pad: 0.38rem 0.52rem;
+	--app-title-size: 1rem;
+	--app-title-weight: 700;
+	--app-btn-height: 1.1rem;
+}
+
+.quote-page-phone,
+.editq-page {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: var(--app-phone-max);
+	margin: 0 auto;
+	padding: 0 0.75rem 0.75rem;
+}
+
+.quote-card,
+.quote-plan-card,
+.quote-filter-box,
+.editq-fold-card,
+.editq-dependant {
+	border: 0.0625rem solid #b9c3cf;
+	border-radius: 0.625rem;
+	background: #f8fcff;
+	overflow: hidden;
+}
+
+.quote-card-title,
+.editq-card-title {
+	margin: 0;
+	padding: var(--app-title-pad);
+	background: #e6f2fc;
+	color: #0e1a2a;
+	font-size: var(--app-title-size);
+	font-weight: var(--app-title-weight);
+}
+
+.quote-phone-fold-title,
+.editq-fold-title {
+	list-style: none;
+	cursor: pointer;
+	position: relative;
+	text-align: left;
+}
+
+.quote-phone-fold-title::-webkit-details-marker,
+.editq-fold-title::-webkit-details-marker {
+	display: none;
+}
+
+.quote-phone-fold-title::marker,
+.editq-fold-title::marker {
+	content: "";
+}
+
+.quote-phone-fold-title::before,
+.editq-fold-title::before {
+	content: "";
+	position: absolute;
+	left: 0.4rem;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border-top: 0.28rem solid transparent;
+	border-bottom: 0.28rem solid transparent;
+	border-left: 0.42rem solid #43536b;
+	transform: translateY(-50%);
+}
+
+details[open] > .quote-phone-fold-title::before,
+details[open] > .editq-fold-title::before {
+	transform: translateY(-50%) rotate(90deg);
+}
+
+.quote-phone-info-fold > .quote-phone-fold-title,
+.quote-phone-plans-fold > .quote-phone-fold-title,
+.quote-phone-selected-fold > .quote-phone-fold-title,
+.editq-fold-card > .editq-fold-title {
+	padding-left: 1.15rem;
+}

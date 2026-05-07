@@ -1,56 +1,6 @@
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	overflow-y: scroll;
-	scrollbar-gutter: stable;
-}
-
-body {
-	background: #f3f4f6;
-	color: #1d2430;
-	font-family: "Helvetica Neue", Arial, sans-serif;
-}
-
-:root {
-	--app-phone-max: 26.875rem;
-	--app-title-pad: 0.38rem 0.52rem;
-	--app-title-size: 1rem;
-	--app-title-weight: 700;
-	--app-btn-height: 1.1rem;
-}
-
-.editq-page {
-	box-sizing: border-box;
-	width: 100%;
-	max-width: var(--app-phone-max);
-	margin: 0 auto;
-	padding: 0 0.75rem 0.75rem;
-}
-
 .editq-body {
 	display: grid;
 	gap: 0;
-}
-
-.editq-fold-card,
-.editq-dependant {
-	border: 0.0625rem solid #b9c3cf;
-	border-radius: 0.625rem;
-	background: #f8fcff;
-	overflow: hidden;
-}
-
-.editq-card-title {
-	margin: 0;
-	padding: var(--app-title-pad);
-	background: #e6f2fc;
-	color: #0e1a2a;
-	font-size: var(--app-title-size);
-	font-weight: var(--app-title-weight);
 }
 
 .editq-card-title-row {
@@ -93,42 +43,6 @@ body {
 	padding-top: 0;
 	padding-bottom: 0;
 	vertical-align: middle;
-}
-
-.editq-fold-title {
-	list-style: none;
-	cursor: pointer;
-	position: relative;
-	text-align: left;
-}
-
-.editq-fold-title::-webkit-details-marker {
-	display: none;
-}
-
-.editq-fold-title::marker {
-	content: "";
-}
-
-.editq-fold-title::before {
-	content: "";
-	position: absolute;
-	left: 0.4rem;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border-top: 0.28rem solid transparent;
-	border-bottom: 0.28rem solid transparent;
-	border-left: 0.42rem solid #43536b;
-	transform: translateY(-50%);
-}
-
-details[open] > .editq-fold-title::before {
-	transform: translateY(-50%) rotate(90deg);
-}
-
-.editq-fold-card > .editq-fold-title {
-	padding-left: 1.15rem;
 }
 
 .editq-card-body {
@@ -421,8 +335,7 @@ details[open] > .editq-fold-title::before {
 	align-items: center;
 }
 
-.editq-dep-name,
-.editq-dep-birth {
+.editq-dep-name {
 	width: 100%;
 	min-width: 0;
 	box-sizing: border-box;
@@ -433,6 +346,12 @@ details[open] > .editq-fold-title::before {
 	color: inherit;
 	font: inherit;
 	font-size: 0.86rem;
+}
+
+.editq-dep-birth {
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
 }
 
 .editq-section {
@@ -564,10 +483,6 @@ details[open] > .editq-fold-title::before {
 .editq-dep-birth {
 	flex: 0 0 6.25rem;
 	max-width: 6.25rem;
-	padding-left: 0.35rem;
-	padding-right: 0.2rem;
-	font-size: 0.78rem;
-	font-variant-numeric: tabular-nums;
 }
 
 .editq-check {
@@ -1164,8 +1079,7 @@ details[open] > .editq-fold-title::before {
 		color: var(--editq-muted);
 	}
 	
-	.editq-dep-name,
-	.editq-dep-birth {
+	.editq-dep-name {
 		width: 100%;
 		min-width: 0;
 		box-sizing: border-box;
@@ -1176,6 +1090,12 @@ details[open] > .editq-fold-title::before {
 		color: inherit;
 		font: inherit;
 		font-size: 0.82rem;
+	}
+
+	.editq-dep-birth {
+		width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
 	}
 	
 	.editq-check {

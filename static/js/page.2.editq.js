@@ -74,6 +74,10 @@
 		const list = document.querySelectorAll('#EditQForm textarea.editq-grow-input');
 		for (const el of list) autosize(el);
 	};
+	const initDateControls = (root = document) => {
+		if (typeof window.QuoteDateControlInit !== 'function') return;
+		window.QuoteDateControlInit(root);
+	};
 
 	const controlValue = (el) => {
 		if (el instanceof HTMLButtonElement) return el.value || '1';
@@ -106,12 +110,13 @@
 							if (!target) continue;
 							if (msg.method === 'outerHTML') target.outerHTML = msg.content;
 							if (msg.method === 'innerHTML') target.innerHTML = msg.content;
-							if (msg.method === 'remove') target.remove();
-						}
-						applyFoldStates();
-						autosizeAll();
-						restoreFocus(focus);
-					});
+						if (msg.method === 'remove') target.remove();
+					}
+					applyFoldStates();
+					autosizeAll();
+					initDateControls();
+					restoreFocus(focus);
+				});
 			})
 			.catch(() => {});
 	};
@@ -199,4 +204,5 @@
 	document.addEventListener('toggle', onFoldToggle, true);
 	applyFoldStates();
 	autosizeAll();
+	initDateControls();
 })();

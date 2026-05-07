@@ -9,7 +9,7 @@ import (
 )
 
 func QuoteCSSPath() string {
-	return Str(`/static/css/responsive.css?v=`, App.staticVersion)
+	return Str(`/static/css/choose.css?v=`, App.staticVersion)
 }
 
 func QuotePageView(vars QuoteVars_t, plans QuotePlans_t) Elem_t {
@@ -132,9 +132,10 @@ func Page1Quote(w0 http.ResponseWriter, req *http.Request) {
 
 	head := Head()
 	head = head.
+		CSS(Str(`/static/css/common.css?v=`, App.staticVersion)).
 		CSS(QuoteCSSPath()).
-		CSSTail(Str(`/static/css/page.1.quote.date.css?v=`, App.staticVersion)).
-		JSTail(Str(`/static/js/page.1.quote.date.js?v=`, App.staticVersion)).
+		CSSTail(Str(`/static/css/date-ctrl.css?v=`, App.staticVersion)).
+		JSTail(Str(`/static/js/date-ctrl.js?v=`, App.staticVersion)).
 		JSTail(Str(`/static/js/page.1.quote.js?v=`, App.staticVersion)).
 		Title(SiteName).
 		End()

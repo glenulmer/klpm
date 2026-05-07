@@ -8,7 +8,7 @@ import (
 )
 
 func EditQCSSPath() string {
-	return Str(`/static/css/responsive2.css?v=`, App.staticVersion)
+	return Str(`/static/css/review.css?v=`, App.staticVersion)
 }
 
 func EditQBodyView(vars QuoteVars_t, sortForGet bool) Elem_t {
@@ -43,7 +43,10 @@ func Page2EditQ(w0 http.ResponseWriter, req *http.Request) {
 
 	head := Head()
 	head = head.
+		CSS(Str(`/static/css/common.css?v=`, App.staticVersion)).
 		CSS(EditQCSSPath()).
+		CSSTail(Str(`/static/css/date-ctrl.css?v=`, App.staticVersion)).
+		JSTail(Str(`/static/js/date-ctrl.js?v=`, App.staticVersion)).
 		JSTail(Str(`/static/js/page.2.editq.js?v=`, App.staticVersion)).
 		Title(SiteName).
 		End()

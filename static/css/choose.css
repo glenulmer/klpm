@@ -1,48 +1,9 @@
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	overflow-y: scroll;
-	scrollbar-gutter: stable;
-}
-
-body {
-	background: #f3f4f6;
-	color: #1d2430;
-	font-family: "Helvetica Neue", Arial, sans-serif;
-}
-
 :root {
-	--app-phone-max: 26.875rem;
-	--app-title-pad: 0.38rem 0.52rem;
-	--app-title-size: 1rem;
-	--app-title-weight: 700;
-	--app-btn-height: 1.1rem;
 	--quote-select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%233b4f6a' d='M1.4 1.2 6 5.8l4.6-4.6L12 2.6 6 8 0 2.6z'/%3E%3C/svg%3E");
-}
-
-.quote-page-phone {
-	box-sizing: border-box;
-	width: 100%;
-	max-width: var(--app-phone-max);
-	margin: 0 auto;
-	padding: 0 0.75rem 0.75rem;
 }
 
 .quote-form {
 	margin: 0;
-}
-
-.quote-card,
-.quote-plan-card,
-.quote-filter-box {
-	border: 0.0625rem solid #b9c3cf;
-	border-radius: 0.625rem;
-	background: #f8fcff;
-	overflow: hidden;
 }
 
 .quote-card {
@@ -50,61 +11,8 @@ body {
 	padding: 0;
 }
 
-.quote-card-title {
-	margin: 0;
-	padding: var(--app-title-pad);
-	background: #e6f2fc;
-	color: #0e1a2a;
-	font-size: var(--app-title-size);
-	font-weight: var(--app-title-weight);
-}
-
-.quote-phone-fold-title {
-	list-style: none;
-	cursor: pointer;
-	position: relative;
-	text-align: left;
-}
-
-.quote-phone-fold-title::-webkit-details-marker {
-	display: none;
-}
-
-.quote-phone-fold-title::marker {
-	content: "";
-}
-
-.quote-phone-fold-title::before {
-	content: "";
-	position: absolute;
-	left: 0.4rem;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border-top: 0.28rem solid transparent;
-	border-bottom: 0.28rem solid transparent;
-	border-left: 0.42rem solid #43536b;
-	transform: translateY(-50%);
-}
-
-details[open] > .quote-phone-fold-title::before {
-	transform: translateY(-50%) rotate(90deg);
-}
-
-.quote-phone-info-fold > .quote-phone-fold-title {
-	padding-left: 1.15rem;
-}
-
 .quote-phone-info-fold {
 	margin-bottom: 0;
-}
-
-.quote-phone-plans-fold > .quote-phone-fold-title {
-	padding-left: 1.15rem;
-}
-
-.quote-phone-selected-fold > .quote-phone-fold-title {
-	padding-left: 1.15rem;
 }
 
 .quote-phone-selected-title {
@@ -1031,13 +939,6 @@ details[open] > .quote-filter-box-title::before {
 	height: 0.78rem;
 }
 
-.quote-page-phone .quote-info-grid-desktop .qdate .date-control {
-	--qdate-field-height: 1.75rem;
-	--qdate-border-color: #9cb6d4;
-	--qdate-sep-color: #d7e2ec;
-	border-radius: 0.5rem;
-}
-
 .quote-plan-results {
 	display: grid;
 	gap: 0;
@@ -1497,13 +1398,6 @@ details[open] > .quote-filter-box-title::before {
 	.quote-info-grid-desktop .quote-check.quote-desk-flag .quote-check-text {
 		font-size: 0.6875rem;
 		color: var(--muted);
-	}
-
-	.quote-page-phone .quote-info-grid-desktop .qdate .date-control {
-		--qdate-field-height: 1.75rem;
-		--qdate-border-color: #b7b7b7;
-		--qdate-sep-color: #d7d7d7;
-		border-radius: 0.25rem;
 	}
 
 	.quote-plan-table-main {

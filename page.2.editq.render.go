@@ -190,7 +190,7 @@ func EditQDependantView(vars QuoteVars_t, dep EditQDep_t) Elem_t {
 	return Div().Class(`editq-dependant`).Wrap(
 		Div().Class(`editq-dependant-fields-row`).Wrap(
 			QuoteInputText(EditQDepNameKey(dep.depId), dep.name, `Dependant name`).Class(`editq-dep-name`),
-			QuoteInputDate(EditQDepBirthKey(dep.depId), dep.birth).Class(`editq-dep-birth`),
+			QuoteInputBirth(EditQDepBirthKey(dep.depId), dep.birth).Class(`editq-dep-birth`),
 			Elem(`label`).Class(`editq-check`, `editq-dep-vision`).KV(`title`, `Vision`).Wrap(
 				QuoteCheckbox(EditQDepVisionKey(dep.depId), dep.vision),
 				Span(`Vision`).Class(`editq-check-text`),
