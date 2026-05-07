@@ -106,7 +106,6 @@
 	color: inherit;
 }
 
-.qdate .segment:hover .value-input,
 .qdate .segment:focus-within .value-input {
 	background: #e9f1fb;
 }
@@ -130,10 +129,20 @@
 	pointer-events: none;
 }
 
-.qdate .segment:hover .arrow-btn,
 .qdate .segment:focus-within .arrow-btn {
 	opacity: 1;
 	pointer-events: auto;
+}
+
+@media (hover: hover) {
+	.qdate .segment:hover .value-input {
+		background: #e9f1fb;
+	}
+
+	.qdate .segment:hover .arrow-btn {
+		opacity: 1;
+		pointer-events: auto;
+	}
 }
 
 .qdate .arrow-btn::before {
@@ -184,10 +193,6 @@
 		width: 4.9ch;
 	}
 
-	.qdate .arrow-btn {
-		opacity: 1;
-		pointer-events: auto;
-	}
 }
 
 .quote-page-phone .qdate .date-control {
