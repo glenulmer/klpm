@@ -108,11 +108,37 @@ func (xl *Excel_t)writePlanDependantCells(col string, item QuoteSelectedItem_t, 
 }
 
 func (xl *Excel_t)writePlanTotalsCells(col string, item QuoteSelectedItem_t, row QuotePlan_t) {
-	preexByItem, _ := EditQReviewPreexByItemCateg(xl.qvars)
+	preexByItem, preexByItemCateg := EditQReviewPreexByItemCateg(xl.qvars)
 	total := row.price + preexByItem[item.itemId]
 	_ = xl.SetCellValue(quoteSheet, Str(col, 21), total.OutEuro())
 
 	youpay := total
+	if xl.qvars.core.segment == Employee {
+		pvn := row.price - row.price
+		pvnCateg := CategId_t(0)
+		if addon, ok := QuotePlanAddonByTag(row, `pvn`); ok && addon.priceOk {
+			pvn = addon.base + addon.surcharge
+			pvnCateg = addon.categId
+		}
+		if pvnCateg != 0 {
+			key := Str(item.itemId, `:`, pvnCateg)
+			pvn += preexByItemCateg[key]
+		}
+
+		wo := total - pvn
+		companyPays := wo / 2
+
+		year := CurrentDBDate().Year()
+		if Valid(xl.qvars.core.buy) { year = xl.qvars.core.buy.Year() }
+		if y, ok := App.lookup.years.byId[year]; ok {
+			maxshare := y.maxshare.ToEuroCent()
+			if companyPays > maxshare { companyPays = maxshare }
+		}
+
+		companyPays += pvn / 2
+		youpay -= companyPays
+	}
+
 	for i, dep := range xl.qvars.dependants {
 		if i >= 10 { break }
 		depId := dep.depId
