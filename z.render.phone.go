@@ -45,15 +45,28 @@ func QuotePhoneFormBodyView(vars QuoteVars_t) Elem_t {
 							),
 						),
 					),
-					Div().Class(`quote-desk-row`, `quote-desk-row-bottom`).Wrap(
-						QuoteNamedControlLabelSpanView(layoutDesktop, `deductibleMin`, `Deductible Min`, vars, 0, `quote-desk-compact`, `quote-desk-right`),
-						QuoteNamedControlLabelSpanView(layoutDesktop, `hospitalMin`, `Hospital Min`, vars, 0, `quote-desk-compact`),
-						QuoteNamedControlLabelSpanView(layoutDesktop, `dentalMin`, `Dental Min`, vars, 0, `quote-desk-compact`),
-					),
-					Div().Class(`quote-desk-row`, `quote-desk-row-bottom`).Wrap(
-						QuoteNamedControlOnlySpanView(layoutDesktop, `deductibleMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`, `quote-desk-right`),
-						QuoteNamedControlOnlySpanView(layoutDesktop, `hospitalMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`),
-						QuoteNamedControlOnlySpanView(layoutDesktop, `dentalMax`, vars, 0, `quote-desk-no-label`, `quote-desk-compact`),
+					Div().Class(`quote-desk-row`, `quote-desk-row-bottom`, `quote-desk-row-bottom-ranges`).Wrap(
+						Div().Class(`quote-range-pair`).Wrap(
+							Span(`Deductible`).Class(`quote-label`, `quote-range-pair-label`),
+							Div().Class(`quote-range-pair-controls`).Wrap(
+								QuoteNamedControlOnlySpanView(layoutDesktop, `deductibleMin`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`, `quote-desk-right`),
+								QuoteNamedControlOnlySpanView(layoutDesktop, `deductibleMax`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`, `quote-desk-right`),
+							),
+						),
+						Div().Class(`quote-range-pair`).Wrap(
+							Span(`Hospital`).Class(`quote-label`, `quote-range-pair-label`),
+							Div().Class(`quote-range-pair-controls`).Wrap(
+								QuoteNamedControlOnlySpanView(layoutDesktop, `hospitalMin`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`),
+								QuoteNamedControlOnlySpanView(layoutDesktop, `hospitalMax`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`),
+							),
+						),
+						Div().Class(`quote-range-pair`).Wrap(
+							Span(`Dental`).Class(`quote-label`, `quote-range-pair-label`),
+							Div().Class(`quote-range-pair-controls`).Wrap(
+								QuoteNamedControlOnlySpanView(layoutDesktop, `dentalMin`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`),
+								QuoteNamedControlOnlySpanView(layoutDesktop, `dentalMax`, vars, 1, `quote-desk-no-label`, `quote-desk-compact`),
+							),
+						),
 					),
 				),
 			),

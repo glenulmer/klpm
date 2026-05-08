@@ -19,7 +19,7 @@
 ## C) Code style
  * use all-in-one-line for if, while, switch etc if all code fits comfortably one line (less than 75 chars). eg "if count == 0 { continue }" or "if count == 0 { count++; Log(count); continue }
  * Avoid if err != nil and other code plumbing.
- * Avoid "if ok := someFunc(); ok { ... }"
+ * Avoid "if ok := boolExpr; ok { ... }"
  * No naked returns
 
 ## D) Code Quality Check

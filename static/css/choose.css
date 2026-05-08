@@ -1224,16 +1224,27 @@ details[open] > .quote-filter-box-title::before {
 
 	body {
 		margin: 0;
-		padding: 0.75rem 0.9rem;
+		padding: 0;
 		background: var(--bg);
 		color: var(--text);
 		font: 13px/1.25 "Helvetica Neue", Arial, sans-serif;
 	}
 
 	.quote-page-phone {
-		max-width: 100rem;
-		margin: 0 auto;
+		max-width: none;
+		margin: 0;
 		padding: 0;
+	}
+
+	.quote-page-phone,
+	.quote-form-phone,
+	#QuoteFormBody {
+		margin-top: 0 !important;
+		padding-top: 0;
+	}
+
+	#QuoteFormBody > .quote-phone-info-fold {
+		margin-top: -0.125rem !important;
 	}
 
 	.quote-form-phone {
@@ -1244,6 +1255,10 @@ details[open] > .quote-filter-box-title::before {
 		display: grid;
 		gap: 0.625rem;
 		align-items: start;
+	}
+
+	#QuoteFormBody > #QuotePhoneStickyAnchor {
+		display: none;
 	}
 
 	.quote-phone-info-fold,
@@ -1294,6 +1309,59 @@ details[open] > .quote-filter-box-title::before {
 		align-items: center;
 	}
 
+	.quote-phone-info-fold {
+		position: relative;
+		overflow: visible;
+	}
+
+	.quote-phone-info-fold > .quote-phone-fold-title {
+		position: static;
+		display: block;
+		height: 0;
+		min-height: 0;
+		margin: 0;
+		padding: 0 !important;
+		padding-left: 0 !important;
+		border: 0 !important;
+		background: transparent !important;
+		line-height: 0;
+		font-size: 0;
+		overflow: visible;
+	}
+
+	.quote-phone-info-fold > .quote-phone-fold-title::before {
+		display: none;
+		content: none;
+	}
+
+	.quote-phone-info-fold > .quote-phone-fold-title > span {
+		display: none;
+	}
+
+	.quote-phone-info-fold > .quote-phone-fold-title .quote-phone-actions {
+		position: absolute;
+		left: 100%;
+		top: 50%;
+		transform: translate(0.6rem, -50%);
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.25rem;
+		margin: 0;
+		padding-left: 0.2rem;
+	}
+
+	.quote-phone-info-fold > .quote-phone-fold-title .quote-edit-quote-btn {
+		height: 1.5rem;
+		min-width: 4.2rem;
+		padding: 0 0.5625rem;
+		border: 0.0625rem solid #8fa3c1;
+		border-radius: 0.25rem;
+		background: #f4f8ff;
+		color: #214064;
+		font-size: 0.78rem;
+	}
+
 	.quote-info-actions {
 		position: absolute;
 		left: 100%;
@@ -1318,24 +1386,98 @@ details[open] > .quote-filter-box-title::before {
 	}
 
 	.quote-info-grid-desktop {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		column-gap: 0.375rem;
+		row-gap: 0.375rem;
+		align-items: end;
 		background: var(--panel);
 	}
 
-	.quote-info-grid-desktop .quote-desk-row-top {
-		grid-template-columns: 2fr 1fr;
+	.quote-info-grid-desktop .quote-desk-row {
+		display: grid;
+		column-gap: 0.375rem;
+		align-items: end;
+		padding-top: 0;
 	}
 
-	.quote-info-grid-desktop .quote-desk-row-top .quote-desk-flags-wrap {
-		grid-column: auto;
+	.quote-info-grid-desktop > .quote-desk-row-top {
+		grid-column: 1 / span 3;
+		grid-row: 1;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
-	.quote-info-grid-desktop .quote-desk-row-flags {
+	.quote-info-grid-desktop > .quote-desk-row-mid:nth-of-type(2) {
+		grid-column: 1 / span 3;
+		grid-row: 2;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.quote-info-grid-desktop > .quote-desk-row-mid:nth-of-type(3) {
+		grid-column: 4 / span 3;
+		grid-row: 2;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.quote-info-grid-desktop > .quote-desk-row-bottom-ranges {
+		grid-column: 1 / span 6;
+		grid-row: 3;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.quote-info-grid-desktop > .quote-desk-row-flags {
+		grid-column: 4 / span 3;
+		grid-row: 1;
 		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.quote-info-grid-desktop .quote-desk-row-top {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.quote-info-grid-desktop .quote-desk-row-top > .quote-desk-name {
+		grid-column: 1 / span 2 !important;
+	}
+
+	.quote-info-grid-desktop .quote-desk-row-top > .quote-desk-segment {
+		grid-column: 3 !important;
+	}
+
+	.quote-info-grid-desktop .quote-desk-row-flags .quote-desk-flags-wrap {
+		grid-column: auto;
 	}
 
 	.quote-info-grid-desktop .quote-desk-row-mid,
 	.quote-info-grid-desktop .quote-desk-row-bottom {
-		grid-template-columns: repeat(6, minmax(0, 1fr));
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.quote-info-grid-desktop .quote-desk-row-bottom-ranges {
+		column-gap: 0.5rem;
+		row-gap: 0;
+	}
+
+	.quote-info-grid-desktop .quote-range-pair {
+		display: grid;
+		row-gap: 0.1875rem;
+	}
+
+	.quote-info-grid-desktop .quote-range-pair-label {
+		display: block;
+		padding-left: 0;
+		text-align: center;
+	}
+
+	.quote-info-grid-desktop .quote-range-pair-controls {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 0.375rem;
+		align-items: end;
+	}
+
+	.quote-info-grid-desktop .quote-range-pair-controls > * {
+		grid-column: auto !important;
+		min-width: 0;
 	}
 
 	.quote-info-grid-desktop .quote-label {
