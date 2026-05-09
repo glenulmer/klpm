@@ -1231,6 +1231,7 @@ details[open] > .quote-filter-box-title::before {
 		--text: #3f3b33;
 		--muted: #6a655b;
 		--quote-qi-sticky-offset: 0px;
+		--quote-sticky-stack-offset: 0px;
 	}
 
 	body {
@@ -1264,7 +1265,7 @@ details[open] > .quote-filter-box-title::before {
 
 	#QuoteFormBody {
 		display: grid;
-		gap: 0.625rem;
+		gap: 0;
 		align-items: start;
 	}
 
@@ -1328,7 +1329,7 @@ details[open] > .quote-filter-box-title::before {
 		position: sticky;
 		top: 0;
 		z-index: 40;
-		background: var(--panel);
+		background: var(--bg);
 		isolation: isolate;
 	}
 
@@ -1340,7 +1341,7 @@ details[open] > .quote-filter-box-title::before {
 		width: 100vw;
 		height: 100%;
 		transform: translateX(-50%);
-		background: var(--panel);
+		background: var(--bg);
 		pointer-events: none;
 		z-index: -1;
 	}
@@ -1348,6 +1349,7 @@ details[open] > .quote-filter-box-title::before {
 	.quote-qi-sticky-wrap > .quote-phone-info-fold {
 		position: relative;
 		z-index: 1;
+		background: var(--panel);
 	}
 
 	.quote-phone-info-fold > .quote-phone-fold-title {
@@ -1612,6 +1614,27 @@ details[open] > .quote-filter-box-title::before {
 		display: block;
 	}
 
+	.quote-selected-desktop-host {
+		position: sticky;
+		top: var(--quote-qi-sticky-offset, 0px);
+		z-index: 35;
+		background: var(--bg);
+		isolation: isolate;
+	}
+
+	.quote-selected-desktop-host::before {
+		content: "";
+		position: absolute;
+		left: 50%;
+		top: 0;
+		width: 100vw;
+		height: 100%;
+		transform: translateX(-50%);
+		background: var(--bg);
+		pointer-events: none;
+		z-index: -1;
+	}
+
 	.quote-plans-desktop-host,
 	.quote-selected-desktop-host {
 		overflow: visible;
@@ -1673,7 +1696,7 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-plans-desktop-host .quote-plan-table-head > .quote-plan-cell {
 		position: sticky;
-		top: var(--quote-qi-sticky-offset, 0px);
+		top: var(--quote-sticky-stack-offset, 0px);
 		z-index: 20;
 		background: var(--quote-table-head-bg);
 	}
@@ -1688,6 +1711,6 @@ details[open] > .quote-filter-box-title::before {
 	}
 
 	.quote-desk-selected {
-		margin-top: 0.5rem;
+		margin-top: 0;
 	}
 }

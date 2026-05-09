@@ -208,14 +208,41 @@
 		const root = document.documentElement;
 		if (isPhoneViewport()) {
 			root.style.setProperty('--quote-qi-sticky-offset', '0px');
+			root.style.setProperty('--quote-sticky-stack-offset', '0px');
+			const plans = document.getElementById('QuotePlans');
+			const selectedHost = document.querySelector('.quote-selected-desktop-host');
+			const plansHost = document.querySelector('.quote-plans-desktop-host');
+			const filterBox = document.querySelector('#QuotePlans > .quote-filter-box');
+			if (plans instanceof HTMLElement) plans.style.width = '';
+			if (selectedHost instanceof HTMLElement) selectedHost.style.width = '';
+			if (plansHost instanceof HTMLElement) plansHost.style.width = '';
+			if (filterBox instanceof HTMLElement) filterBox.style.width = '';
 			return;
 		}
-		const wrap = document.querySelector('.quote-qi-sticky-wrap');
-		if (!(wrap instanceof HTMLElement)) {
+		const qiWrap = document.querySelector('.quote-qi-sticky-wrap');
+		const selectedHost = document.querySelector('.quote-selected-desktop-host');
+		if (!(qiWrap instanceof HTMLElement) || !(selectedHost instanceof HTMLElement)) {
 			root.style.setProperty('--quote-qi-sticky-offset', '0px');
+			root.style.setProperty('--quote-sticky-stack-offset', '0px');
 			return;
 		}
-		root.style.setProperty('--quote-qi-sticky-offset', `${Math.ceil(wrap.getBoundingClientRect().height)}px`);
+		const qiH = Math.ceil(qiWrap.getBoundingClientRect().height);
+		const selectedH = Math.ceil(selectedHost.getBoundingClientRect().height);
+		root.style.setProperty('--quote-qi-sticky-offset', `${qiH}px`);
+		root.style.setProperty('--quote-sticky-stack-offset', `${qiH + selectedH}px`);
+
+		const plans = document.getElementById('QuotePlans');
+		const plansHost = document.querySelector('.quote-plans-desktop-host');
+		const plansTable = document.querySelector('.quote-plans-desktop-host .quote-plan-table');
+		const filterBox = document.querySelector('#QuotePlans > .quote-filter-box');
+		if (!(plansTable instanceof HTMLElement)) return;
+		const tableW = Math.ceil(plansTable.getBoundingClientRect().width);
+		if (tableW <= 0) return;
+		const w = `${tableW}px`;
+		if (plans instanceof HTMLElement) plans.style.width = w;
+		selectedHost.style.width = w;
+		if (plansHost instanceof HTMLElement) plansHost.style.width = w;
+		if (filterBox instanceof HTMLElement) filterBox.style.width = w;
 	};
 
 	const scheduleStickySync = () => {
