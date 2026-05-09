@@ -226,10 +226,10 @@
 			root.style.setProperty('--quote-sticky-stack-offset', '0px');
 			return;
 		}
-		const qiH = Math.ceil(qiWrap.getBoundingClientRect().height);
-		const selectedH = Math.ceil(selectedHost.getBoundingClientRect().height);
-		root.style.setProperty('--quote-qi-sticky-offset', `${qiH}px`);
-		root.style.setProperty('--quote-sticky-stack-offset', `${qiH + selectedH}px`);
+		const qiH = qiWrap.getBoundingClientRect().height;
+		const selectedH = selectedHost.getBoundingClientRect().height;
+		root.style.setProperty('--quote-qi-sticky-offset', `${qiH.toFixed(2)}px`);
+		root.style.setProperty('--quote-sticky-stack-offset', `${(qiH + selectedH).toFixed(2)}px`);
 
 		const plans = document.getElementById('QuotePlans');
 		const plansHost = document.querySelector('.quote-plans-desktop-host');

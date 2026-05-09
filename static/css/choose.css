@@ -1300,6 +1300,12 @@ details[open] > .quote-filter-box-title::before {
 		width: min(75rem, 100%);
 	}
 
+	#QuotePlans,
+	.quote-plans-desktop-host {
+		margin-top: 0;
+		padding-top: 0;
+	}
+
 	.quote-phone-info-fold > .quote-phone-fold-title,
 	.quote-phone-selected-card > .quote-phone-fold-title,
 	.quote-phone-plans-fold > .quote-phone-fold-title,
