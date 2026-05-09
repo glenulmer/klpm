@@ -1650,6 +1650,7 @@ details[open] > .quote-filter-box-title::before {
 		display: table;
 		width: max-content;
 		min-width: max-content;
+		border-top: 0;
 	}
 
 	.quote-selected-desktop-host .quote-plan-table {
@@ -1702,7 +1703,7 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-plans-desktop-host .quote-plan-table-head > .quote-plan-cell {
 		position: sticky;
-		top: var(--quote-sticky-stack-offset, 0px);
+		top: calc(var(--quote-sticky-stack-offset, 0px) - 1px);
 		z-index: 20;
 		background: var(--quote-table-head-bg);
 	}
