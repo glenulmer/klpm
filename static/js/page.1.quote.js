@@ -14,6 +14,99 @@
 	const phoneStickyGapPx = 0;
 	const desktopLayoutQuery = window.matchMedia('(min-width: 900px)');
 	const isPhoneViewport = () => !desktopLayoutQuery.matches;
+	const desktopColWidthStyleId = 'QuoteDesktopColWidths';
+	let desktopColWidthTimer = 0;
+
+	const removeDesktopColWidths = () => {
+		const old = document.getElementById(desktopColWidthStyleId);
+		if (old) old.remove();
+	};
+
+	const applyDesktopColWidths = (widthsRem) => {
+		if (!Array.isArray(widthsRem) || widthsRem.length === 0) return;
+		let css = '';
+		for (let i = 0; i < widthsRem.length; i++) {
+			const w = Number(widthsRem[i]);
+			if (!Number.isFinite(w) || w <= 0) continue;
+			const n = i + 1;
+			const rem = `${w.toFixed(4)}rem`;
+			css += `.quote-plans-desktop-host .quote-plan-table-row > .quote-plan-cell:nth-child(${n}),`;
+			css += `.quote-selected-desktop-host .quote-plan-table-row > .quote-plan-cell:nth-child(${n}){`;
+			css += `width:${rem};min-width:${rem};max-width:${rem};}`;
+		}
+		if (!css) return;
+		let style = document.getElementById(desktopColWidthStyleId);
+		if (!(style instanceof HTMLStyleElement)) {
+			style = document.createElement('style');
+			style.id = desktopColWidthStyleId;
+			document.head.appendChild(style);
+		}
+		style.textContent = css;
+	};
+
+	const cellNaturalWidthPx = (cell) => {
+		if (!(cell instanceof HTMLElement)) return 0;
+		const cs = window.getComputedStyle(cell);
+		const padLeft = Number.parseFloat(cs.paddingLeft || '0') || 0;
+		const padRight = Number.parseFloat(cs.paddingRight || '0') || 0;
+		const borderLeft = Number.parseFloat(cs.borderLeftWidth || '0') || 0;
+		const borderRight = Number.parseFloat(cs.borderRightWidth || '0') || 0;
+
+		let contentWidth = 0;
+		const range = document.createRange();
+		range.selectNodeContents(cell);
+		const rect = range.getBoundingClientRect();
+		if (Number.isFinite(rect.width)) contentWidth = Math.max(contentWidth, rect.width);
+		for (const el of cell.children) {
+			if (!(el instanceof HTMLElement)) continue;
+			const w = el.getBoundingClientRect().width;
+			if (Number.isFinite(w)) contentWidth = Math.max(contentWidth, w);
+		}
+		return contentWidth + padLeft + padRight + borderLeft + borderRight;
+	};
+
+	const measureDesktopPlanColumnWidths = () => {
+		if (isPhoneViewport()) {
+			removeDesktopColWidths();
+			return null;
+		}
+		const head = document.querySelector('.quote-plans-desktop-host .quote-plan-table-head');
+		if (!(head instanceof HTMLElement)) return null;
+		const root = Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16') || 16;
+		const cells = [...head.querySelectorAll(':scope > .quote-plan-cell')];
+		if (cells.length === 0) return null;
+		const colCount = cells.length;
+		const rows = [...document.querySelectorAll('.quote-plans-desktop-host .quote-plan-table-row, .quote-selected-desktop-host .quote-plan-table-row')];
+		const widthsPx = Array(colCount).fill(0);
+		for (const row of rows) {
+			if (!(row instanceof HTMLElement)) continue;
+			const rowCells = [...row.querySelectorAll(':scope > .quote-plan-cell')];
+			for (let i = 0; i < colCount; i++) {
+				const cell = rowCells[i];
+				if (!(cell instanceof HTMLElement)) continue;
+				widthsPx[i] = Math.max(widthsPx[i], cellNaturalWidthPx(cell));
+			}
+		}
+		return widthsPx.map((px) => Number((px / root).toFixed(4)));
+	};
+
+	const syncDesktopPlanColumnWidths = () => {
+		if (isPhoneViewport()) {
+			removeDesktopColWidths();
+			return;
+		}
+		removeDesktopColWidths();
+		window.requestAnimationFrame(() => {
+			const widthsRem = measureDesktopPlanColumnWidths();
+			if (!widthsRem) return;
+			applyDesktopColWidths(widthsRem);
+		});
+	};
+
+	const scheduleDesktopPlanColumnWidths = (wait = 80) => {
+		window.clearTimeout(desktopColWidthTimer);
+		desktopColWidthTimer = window.setTimeout(syncDesktopPlanColumnWidths, wait);
+	};
 
 	const captureFoldStates = () => {
 		for (const id of foldIds) {
@@ -269,6 +362,7 @@
 				initSickCover();
 				initDateControls();
 				syncPhoneSticky();
+				scheduleDesktopPlanColumnWidths(20);
 			})
 			.catch(() => {});
 	};
@@ -368,7 +462,10 @@
 	document.addEventListener('click', onFoldSummaryClick, true);
 	window.addEventListener('scroll', scheduleStickySync, { passive: true });
 	window.addEventListener('resize', scheduleStickySync);
+	desktopLayoutQuery.addEventListener('change', () => scheduleDesktopPlanColumnWidths(10));
+	window.addEventListener('resize', () => scheduleDesktopPlanColumnWidths(120));
 	initSickCover();
 	initDateControls();
 	scheduleStickySync();
+	scheduleDesktopPlanColumnWidths(40);
 })();

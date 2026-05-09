@@ -302,10 +302,24 @@ func QuotePlanDesktopAddonPickNamedView(name string, addon QuotePlanAddon_t) Ele
 	return Div(QuoteAddonPickText(addon)).Class(`quote-plan-cell-pick`)
 }
 
+func QuotePlanNoAddonLevelLabel(categId CategId_t) string {
+	if !IsHospDental(categId) { return `` }
+	levelId := int(categId) * 10
+	level, ok := App.lookup.levels.byId[levelId]
+	if !ok { return `` }
+	label := Trim(level.label)
+	if label == `` { return `` }
+	return label
+}
+
 func QuotePlanDesktopCategCellView(x QuotePlan_t, categId CategId_t) Elem_t {
 	addon, ok := QuotePlanAddonByCateg(x, categId)
-	if !ok { return Div(`&nbsp;`).Class(`quote-plan-cell-pick`) }
+	if !ok {
+		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
+	}
 	if !addon.priceOk && addon.addon == 0 && addon.level == 0 && addon.label == `` {
+		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	return QuotePlanDesktopAddonPickView(x.planId, addon)
@@ -322,8 +336,12 @@ func QuotePlanDesktopVisionCellView(x QuotePlan_t) Elem_t {
 
 func QuotePlanDesktopSelectedCategCellView(itemId int, x QuotePlan_t, categId CategId_t) Elem_t {
 	addon, ok := QuotePlanAddonByCateg(x, categId)
-	if !ok { return Div(`&nbsp;`).Class(`quote-plan-cell-pick`) }
+	if !ok {
+		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
+	}
 	if !addon.priceOk && addon.addon == 0 && addon.level == 0 && addon.label == `` {
+		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	name := QuoteSelectedCatKey(itemId, categId)

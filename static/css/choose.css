@@ -1592,10 +1592,15 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-plans-desktop-host,
 	.quote-selected-desktop-host {
-		overflow-x: auto;
+		overflow: visible;
 	}
 
-	.quote-plans-desktop-host .quote-plan-table,
+	.quote-plans-desktop-host .quote-plan-table {
+		display: table;
+		width: max-content;
+		min-width: max-content;
+	}
+
 	.quote-selected-desktop-host .quote-plan-table {
 		display: table;
 		width: max-content;
