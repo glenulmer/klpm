@@ -410,6 +410,9 @@ func QuotePlans(state State_t) QuotePlans_t {
 			if !(CategIs(categ, `natural`) && !filter.naturalMed) {
 				keyName := QuotePlanCatControlName(int(plan.planId), categ.categId)
 				if selected, ok := StateIntOK(state, keyName); ok {
+					if CategIs(categ, `natural`) && filter.naturalMed && selected == 0 {
+						// Natural Med ON should auto-pick an addon even if prior state stored 0.
+					} else
 					if picked, found := QuoteChoiceByAddon(choices, AddonId_t(selected)); found {
 						choice = picked
 					}

@@ -302,12 +302,13 @@ func QuotePlanDesktopAddonPickNamedView(name string, addon QuotePlanAddon_t) Ele
 	return Div(QuoteAddonPickText(addon)).Class(`quote-plan-cell-pick`)
 }
 
-func QuotePlanNoAddonLevelLabel(categId CategId_t) string {
+func QuotePlanNoAddonLevelLabel(planId int, categId CategId_t) string {
 	if !IsHospDental(categId) { return `` }
-	levelId := int(categId) * 10
-	level, ok := App.lookup.levels.byId[levelId]
+	plan, ok := App.lookup.plans.byId[planId]
 	if !ok { return `` }
-	label := Trim(level.label)
+	levelId := PlanBundledLevel(plan, categId)
+	if levelId <= 0 { return `` }
+	label := Trim(LevelLabel(levelId))
 	if label == `` { return `` }
 	return label
 }
@@ -315,11 +316,11 @@ func QuotePlanNoAddonLevelLabel(categId CategId_t) string {
 func QuotePlanDesktopCategCellView(x QuotePlan_t, categId CategId_t) Elem_t {
 	addon, ok := QuotePlanAddonByCateg(x, categId)
 	if !ok {
-		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		if label := QuotePlanNoAddonLevelLabel(x.planId, categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	if !addon.priceOk && addon.addon == 0 && addon.level == 0 && addon.label == `` {
-		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		if label := QuotePlanNoAddonLevelLabel(x.planId, categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	return QuotePlanDesktopAddonPickView(x.planId, addon)
@@ -337,11 +338,11 @@ func QuotePlanDesktopVisionCellView(x QuotePlan_t) Elem_t {
 func QuotePlanDesktopSelectedCategCellView(itemId int, x QuotePlan_t, categId CategId_t) Elem_t {
 	addon, ok := QuotePlanAddonByCateg(x, categId)
 	if !ok {
-		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		if label := QuotePlanNoAddonLevelLabel(x.planId, categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	if !addon.priceOk && addon.addon == 0 && addon.level == 0 && addon.label == `` {
-		if label := QuotePlanNoAddonLevelLabel(categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
+		if label := QuotePlanNoAddonLevelLabel(x.planId, categId); label != `` { return Div(label).Class(`quote-plan-cell-pick`) }
 		return Div(`&nbsp;`).Class(`quote-plan-cell-pick`)
 	}
 	name := QuoteSelectedCatKey(itemId, categId)
