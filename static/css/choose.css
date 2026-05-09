@@ -1349,7 +1349,7 @@ details[open] > .quote-filter-box-title::before {
 	.quote-qi-sticky-wrap > .quote-phone-info-fold {
 		position: relative;
 		z-index: 1;
-		background: var(--panel);
+		background: var(--bg);
 	}
 
 	.quote-phone-info-fold > .quote-phone-fold-title {
