@@ -1597,25 +1597,24 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-plans-desktop-host .quote-plan-table,
 	.quote-selected-desktop-host .quote-plan-table {
+		display: table;
+		width: max-content;
 		min-width: max-content;
 	}
 
 	.quote-plans-desktop-host .quote-plan-table-row,
 	.quote-selected-desktop-host .quote-plan-table-row {
-		display: flex;
+		display: table-row;
 		grid-template-columns: none;
-		align-items: stretch;
 	}
 
 	.quote-plan-cell {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		display: table-cell;
 		padding: 0.38rem 0.45rem;
 		font-size: 0.78rem;
 		line-height: 1.2;
-		flex: 1 1 0;
-		min-width: 5.75rem;
+		white-space: nowrap;
+		vertical-align: middle;
 	}
 
 	.quote-plan-table-head .quote-plan-cell {
@@ -1626,17 +1625,23 @@ details[open] > .quote-filter-box-title::before {
 	.quote-plans-desktop-host .quote-plan-action-cell,
 	.quote-selected-desktop-host .quote-plan-action-head,
 	.quote-selected-desktop-host .quote-plan-action-cell {
-		flex: 0 0 2rem;
-		min-width: 2rem;
 		padding-left: 0.18rem;
 		padding-right: 0.18rem;
 	}
 
 	.quote-plans-desktop-host .quote-plan-name-cell,
 	.quote-selected-desktop-host .quote-plan-name-cell {
-		flex: 0 0 18rem;
-		min-width: 18rem;
-		justify-content: flex-start;
+		white-space: normal;
+	}
+
+	.quote-plans-desktop-host .quote-plan-col-money,
+	.quote-selected-desktop-host .quote-plan-col-money {
+		text-align: right;
+	}
+
+	.quote-plans-desktop-host .quote-plan-col-total,
+	.quote-selected-desktop-host .quote-plan-col-total {
+		text-align: right;
 	}
 
 	.quote-plan-cell-pick > select {
