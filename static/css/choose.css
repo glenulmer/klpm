@@ -1230,8 +1230,8 @@ details[open] > .quote-filter-box-title::before {
 		--line-soft: #e9e2d1;
 		--text: #3f3b33;
 		--muted: #6a655b;
-		--quote-qi-sticky-offset: 0px;
-		--quote-sticky-stack-offset: 0px;
+		--quote-qi-sticky-offset: 0rem;
+		--quote-sticky-stack-offset: 0rem;
 	}
 
 	body {
@@ -1622,7 +1622,7 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-selected-desktop-host {
 		position: sticky;
-		top: var(--quote-qi-sticky-offset, 0px);
+		top: var(--quote-qi-sticky-offset, 0rem);
 		z-index: 35;
 		background: var(--bg);
 		isolation: isolate;
@@ -1703,7 +1703,7 @@ details[open] > .quote-filter-box-title::before {
 
 	.quote-plans-desktop-host .quote-plan-table-head > .quote-plan-cell {
 		position: sticky;
-		top: calc(var(--quote-sticky-stack-offset, 0px) - 1px);
+		top: calc(var(--quote-sticky-stack-offset, 0rem) - 0.0625rem);
 		z-index: 20;
 		background: var(--quote-table-head-bg);
 	}

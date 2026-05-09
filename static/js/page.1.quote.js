@@ -206,9 +206,11 @@
 
 	const syncDesktopStickyOffsets = () => {
 		const root = document.documentElement;
+		const rootFontPx = Number.parseFloat(window.getComputedStyle(root).fontSize || '16') || 16;
+		const pxToRem = (px) => (px / rootFontPx).toFixed(4);
 		if (isPhoneViewport()) {
-			root.style.setProperty('--quote-qi-sticky-offset', '0px');
-			root.style.setProperty('--quote-sticky-stack-offset', '0px');
+			root.style.setProperty('--quote-qi-sticky-offset', '0rem');
+			root.style.setProperty('--quote-sticky-stack-offset', '0rem');
 			const plans = document.getElementById('QuotePlans');
 			const selectedHost = document.querySelector('.quote-selected-desktop-host');
 			const plansHost = document.querySelector('.quote-plans-desktop-host');
@@ -222,14 +224,14 @@
 		const qiWrap = document.querySelector('.quote-qi-sticky-wrap');
 		const selectedHost = document.querySelector('.quote-selected-desktop-host');
 		if (!(qiWrap instanceof HTMLElement) || !(selectedHost instanceof HTMLElement)) {
-			root.style.setProperty('--quote-qi-sticky-offset', '0px');
-			root.style.setProperty('--quote-sticky-stack-offset', '0px');
+			root.style.setProperty('--quote-qi-sticky-offset', '0rem');
+			root.style.setProperty('--quote-sticky-stack-offset', '0rem');
 			return;
 		}
 		const qiH = qiWrap.getBoundingClientRect().height;
 		const selectedH = selectedHost.getBoundingClientRect().height;
-		root.style.setProperty('--quote-qi-sticky-offset', `${qiH.toFixed(2)}px`);
-		root.style.setProperty('--quote-sticky-stack-offset', `${(qiH + selectedH).toFixed(2)}px`);
+		root.style.setProperty('--quote-qi-sticky-offset', `${pxToRem(qiH)}rem`);
+		root.style.setProperty('--quote-sticky-stack-offset', `${pxToRem(qiH + selectedH)}rem`);
 
 		const plans = document.getElementById('QuotePlans');
 		const plansHost = document.querySelector('.quote-plans-desktop-host');
