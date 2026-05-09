@@ -12,7 +12,7 @@ func RewriteQuotePage(w http.ResponseWriter, req *http.Request, state State_t) {
 	vars := state.quote
 	plans := QuotePlans(state)
 	SendResponse(w,
-		RewriteHTML(OuterHTML, `QuoteFormBody`, QuotePhoneFormBodyView(vars)),
+		RewriteHTML(OuterHTML, `QuoteFormBody`, QuotePhoneFormBodyView(vars, plans)),
 		RewriteHTML(OuterHTML, `QuotePlans`, QuotePhonePlansView(plans)),
 	)
 }
