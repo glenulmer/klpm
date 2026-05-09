@@ -71,7 +71,12 @@ func QuotePhoneFormBodyView(vars QuoteVars_t) Elem_t {
 				),
 			),
 		),
-		QuotePhoneSelectedPlansBox(vars),
+		Div().Class(`quote-selected-phone-host`).Wrap(
+			QuotePhoneSelectedPlansBox(vars),
+		),
+		Div().Class(`quote-selected-desktop-host`).Wrap(
+			QuoteDesktopSelectedPlansBox(vars),
+		),
 	)
 }
 
@@ -88,16 +93,21 @@ func QuotePhonePlansView(data QuotePlans_t) Elem_t {
 	var plans []Elem_t
 	for _, x := range data.plans { plans = append(plans, QuotePlanCardView(x)) }
 	return Div().Id(`QuotePlans`).Class(`quote-plan-results`, `quote-phone-results`).Wrap(
-		Elem(`details`).Class(`quote-phone-fold`, `quote-phone-plans-fold`).KV(`open`, `open`).Wrap(
-			Elem(`summary`).Class(`quote-plan-toolbar`, `quote-phone-plan-toolbar`, `quote-phone-fold-title`).Wrap(
-				Div(`Plans (` , len(data.plans), `)`).Class(`quote-card-title`),
-				Div().Class(`quote-plan-sort`).Wrap(
-					QuoteSortSelectView(data.sortBy),
+		Div().Class(`quote-plans-phone-host`).Wrap(
+			Elem(`details`).Class(`quote-phone-fold`, `quote-phone-plans-fold`).KV(`open`, `open`).Wrap(
+				Elem(`summary`).Class(`quote-plan-toolbar`, `quote-phone-plan-toolbar`, `quote-phone-fold-title`).Wrap(
+					Div(`Plans (` , len(data.plans), `)`).Class(`quote-card-title`),
+					Div().Class(`quote-plan-sort`).Wrap(
+						QuoteSortSelectView(data.sortBy),
+					),
+				),
+				Div().Class(`quote-phone-plans-body`).Wrap(
+					Div().Class(`quote-plan-list`, `quote-plan-list-phone`).Wrap(plans),
 				),
 			),
-			Div().Class(`quote-phone-plans-body`).Wrap(
-				Div().Class(`quote-plan-list`, `quote-plan-list-phone`).Wrap(plans),
-			),
+		),
+		Div().Class(`quote-plans-desktop-host`).Wrap(
+			QuotePlanDesktopView(data),
 		),
 		QuoteFilteredPlansBox(data.filtered),
 	)

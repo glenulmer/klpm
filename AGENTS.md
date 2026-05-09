@@ -29,3 +29,5 @@
 * Keep code simple and readable.
 * Before adding any helper, confirm no equivalent exists in the codebase. Ask for permission to build the helper and explain why it is worth doing and whether it is duplicative.
 * Do not add one-off const values - consts are for repeated use in several files. Instead use harcoded value with a comment if needed.
+
+# DESKTOP ONLY - no changes that impact phone display or layout

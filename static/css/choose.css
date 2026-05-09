@@ -945,6 +945,16 @@ details[open] > .quote-filter-box-title::before {
 	min-width: 0;
 }
 
+.quote-plans-desktop-host,
+.quote-selected-desktop-host {
+	display: none;
+}
+
+.quote-plans-phone-host,
+.quote-selected-phone-host {
+	display: block;
+}
+
 .quote-phone-selected-list,
 .quote-phone-plans-body {
 	padding: 0;
@@ -1570,14 +1580,63 @@ details[open] > .quote-filter-box-title::before {
 		background: #fff8ee;
 	}
 
+	.quote-plans-phone-host,
+	.quote-selected-phone-host {
+		display: none;
+	}
+
+	.quote-plans-desktop-host,
+	.quote-selected-desktop-host {
+		display: block;
+	}
+
+	.quote-plans-desktop-host,
+	.quote-selected-desktop-host {
+		overflow-x: auto;
+	}
+
+	.quote-plans-desktop-host .quote-plan-table,
+	.quote-selected-desktop-host .quote-plan-table {
+		min-width: max-content;
+	}
+
+	.quote-plans-desktop-host .quote-plan-table-row,
+	.quote-selected-desktop-host .quote-plan-table-row {
+		display: flex;
+		grid-template-columns: none;
+		align-items: stretch;
+	}
+
 	.quote-plan-cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		padding: 0.38rem 0.45rem;
 		font-size: 0.78rem;
 		line-height: 1.2;
+		flex: 1 1 0;
+		min-width: 5.75rem;
 	}
 
 	.quote-plan-table-head .quote-plan-cell {
 		font-size: 0.78rem;
+	}
+
+	.quote-plans-desktop-host .quote-plan-action-head,
+	.quote-plans-desktop-host .quote-plan-action-cell,
+	.quote-selected-desktop-host .quote-plan-action-head,
+	.quote-selected-desktop-host .quote-plan-action-cell {
+		flex: 0 0 2rem;
+		min-width: 2rem;
+		padding-left: 0.18rem;
+		padding-right: 0.18rem;
+	}
+
+	.quote-plans-desktop-host .quote-plan-name-cell,
+	.quote-selected-desktop-host .quote-plan-name-cell {
+		flex: 0 0 18rem;
+		min-width: 18rem;
+		justify-content: flex-start;
 	}
 
 	.quote-plan-cell-pick > select {
