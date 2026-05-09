@@ -204,8 +204,23 @@
 		syncPhoneStickyLayout(info, selected, plans);
 	};
 
+	const syncDesktopStickyOffsets = () => {
+		const root = document.documentElement;
+		if (isPhoneViewport()) {
+			root.style.setProperty('--quote-qi-sticky-offset', '0px');
+			return;
+		}
+		const wrap = document.querySelector('.quote-qi-sticky-wrap');
+		if (!(wrap instanceof HTMLElement)) {
+			root.style.setProperty('--quote-qi-sticky-offset', '0px');
+			return;
+		}
+		root.style.setProperty('--quote-qi-sticky-offset', `${Math.ceil(wrap.getBoundingClientRect().height)}px`);
+	};
+
 	const scheduleStickySync = () => {
 		syncPhoneSticky();
+		syncDesktopStickyOffsets();
 	};
 
 	const formatWhole = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');

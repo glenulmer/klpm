@@ -1230,6 +1230,7 @@ details[open] > .quote-filter-box-title::before {
 		--line-soft: #e9e2d1;
 		--text: #3f3b33;
 		--muted: #6a655b;
+		--quote-qi-sticky-offset: 0px;
 	}
 
 	body {
@@ -1253,7 +1254,7 @@ details[open] > .quote-filter-box-title::before {
 		padding-top: 0;
 	}
 
-	#QuoteFormBody > .quote-phone-info-fold {
+	#QuoteFormBody > .quote-qi-sticky-wrap > .quote-phone-info-fold {
 		margin-top: -0.125rem !important;
 	}
 
@@ -1323,16 +1324,15 @@ details[open] > .quote-filter-box-title::before {
 		align-items: center;
 	}
 
-	.quote-phone-info-fold {
+	.quote-qi-sticky-wrap {
 		position: sticky;
 		top: 0;
 		z-index: 40;
-		overflow: visible;
 		background: var(--panel);
 		isolation: isolate;
 	}
 
-	.quote-phone-info-fold::before {
+	.quote-qi-sticky-wrap::before {
 		content: "";
 		position: absolute;
 		left: 50%;
@@ -1343,6 +1343,11 @@ details[open] > .quote-filter-box-title::before {
 		background: var(--panel);
 		pointer-events: none;
 		z-index: -1;
+	}
+
+	.quote-qi-sticky-wrap > .quote-phone-info-fold {
+		position: relative;
+		z-index: 1;
 	}
 
 	.quote-phone-info-fold > .quote-phone-fold-title {
@@ -1664,6 +1669,13 @@ details[open] > .quote-filter-box-title::before {
 	.quote-plans-desktop-host .quote-plan-col-total,
 	.quote-selected-desktop-host .quote-plan-col-total {
 		text-align: right;
+	}
+
+	.quote-plans-desktop-host .quote-plan-table-head > .quote-plan-cell {
+		position: sticky;
+		top: var(--quote-qi-sticky-offset, 0px);
+		z-index: 20;
+		background: var(--quote-table-head-bg);
 	}
 
 	.quote-plan-cell-pick > select {
