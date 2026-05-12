@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	. "klpm/lib/output"
 )
 
@@ -10,6 +11,7 @@ var AutoChoose struct {
 }
 
 func DefaultVars() {
+	if os.Getenv(`HOME`) != `/home/glen` { return }
 	AutoChoose.qvars = QuoteDefaultQuoteVars()
 	AutoChoose.ready = true
 
@@ -33,6 +35,7 @@ func DefaultVars() {
 }
 
 func AddPlan(prov, plan string, addons ...string) {
+	if os.Getenv(`HOME`) != `/home/glen` { return }
 	if !AutoChoose.ready {
 		AutoChoose.qvars = QuoteDefaultQuoteVars()
 		AutoChoose.ready = true
