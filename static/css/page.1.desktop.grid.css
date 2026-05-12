@@ -7,7 +7,7 @@
 		--dp1_gap_tp:      0.2rem;
 		--dp1_plan:       14.0rem;
 		--dp1_sick:        4.0rem;
-		--dp1_pvn:         2.5rem;
+		--dp1_pvn:         2.8rem;
 		--dp1_hosp:        6.5rem;
 		--dp1_dental:      6.0rem;
 		--dp1_cons:        4.5rem;
@@ -100,6 +100,13 @@
 	.quote-selected-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick > select {
 		text-align: left;
 		text-align-last: left;
+	}
+
+	.quote-selected-desktop-host .quote-plan-table-selected-extra-row .quote-plan-categ-cell .quote-plan-cell-pick,
+	.quote-selected-desktop-host .quote-plan-table-selected-extra-row .quote-plan-categ-cell .quote-plan-cell-money,
+	.quote-selected-desktop-host .quote-plan-table-selected-extra-row .quote-plan-categ-cell .quote-plan-cell-money-right {
+		text-align: right;
+		text-align-last: right;
 	}
 
 	.quote-plans-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick,

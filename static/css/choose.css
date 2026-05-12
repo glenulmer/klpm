@@ -984,37 +984,53 @@
 	border-top: 0;
 }
 
-.quote-plan-table-selected .quote-plan-table-selected-base-row,
-.quote-plan-table-selected .quote-plan-table-selected-surch-row {
+.quote-plan-table-main .quote-plan-table-row:not(.quote-plan-table-head) .quote-plan-cell {
+	padding-top: 0.32rem;
+	padding-bottom: 0.26rem;
+}
+
+.quote-plan-table-selected .quote-plan-table-selected-main-row .quote-plan-cell {
+	padding-top: 0.32rem;
+	padding-bottom: 0.26rem;
+}
+
+.quote-plan-table-selected .quote-plan-table-selected-extra-base-row,
+.quote-plan-table-selected .quote-plan-table-selected-extra-surch-row {
 	border-top: 0.0625rem solid #d3dfef;
 }
 
-.quote-plan-table-selected .quote-plan-table-selected-detail-row .quote-plan-cell {
+.quote-plan-table-selected .quote-plan-table-selected-extra-row .quote-plan-cell {
 	text-align: right;
 	font-size: var(--quote-selected-detail-size);
 	font-style: italic;
 	font-weight: 400;
 	line-height: 1;
-	padding-top: 0.08rem;
-	padding-bottom: 0.08rem;
+	padding-top: 0.22rem;
+	padding-bottom: 0.22rem;
 }
 
-.quote-plan-table-selected .quote-plan-table-selected-base-row .quote-plan-cell,
-.quote-plan-table-selected .quote-plan-table-selected-surch-row .quote-plan-cell,
-.quote-plan-table-selected .quote-plan-table-selected-base-row .quote-plan-cell-pick,
-.quote-plan-table-selected .quote-plan-table-selected-surch-row .quote-plan-cell-pick {
+.quote-plan-table-selected .quote-plan-table-selected-extra-base-row .quote-plan-cell,
+.quote-plan-table-selected .quote-plan-table-selected-extra-surch-row .quote-plan-cell,
+.quote-plan-table-selected .quote-plan-table-selected-extra-base-row .quote-plan-cell-pick,
+.quote-plan-table-selected .quote-plan-table-selected-extra-surch-row .quote-plan-cell-pick {
 	font-size: var(--quote-selected-detail-size);
 	line-height: 1;
 }
 
-.quote-plan-table-selected .quote-plan-table-selected-detail-row .quote-plan-cell-pick {
+.quote-plan-table-selected .quote-plan-table-selected-extra-row .quote-plan-cell-pick {
 	text-align: right;
 	font-size: inherit;
 	font-style: inherit;
 	font-weight: inherit;
 }
 
-.quote-plan-table-selected .quote-plan-table-selected-detail-row .quote-plan-selected-detail-name {
+.quote-plan-table-selected .quote-plan-table-selected-extra-row .quote-plan-categ-cell,
+.quote-plan-table-selected .quote-plan-table-selected-extra-row .quote-plan-categ-cell .quote-plan-cell-pick {
+	text-align: right !important;
+	text-align-last: right !important;
+}
+
+.quote-plan-table-selected .quote-plan-table-selected-extra-row .quote-plan-selected-detail-name {
 	text-align: right;
 }
 
@@ -1025,8 +1041,8 @@
 }
 
 .quote-plan-table-selected .quote-plan-selected-detail-split-left {
-	flex: 0 0 25%;
-	max-width: 25%;
+	flex: 0 0 3rem;
+	max-width: 3rem;
 	text-align: right;
 }
 

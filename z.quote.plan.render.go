@@ -402,7 +402,7 @@ func QuotePlanDesktopSelectedAmountCategCellView(x QuotePlan_t, categId CategId_
 	}
 	amount := addon.surcharge
 	if showBase { amount = addon.base }
-	return Div(PriceText(amount, addon.priceOk)).Class(`quote-plan-cell-pick`, `quote-plan-cell-money`)
+	return Div(PriceText(amount, addon.priceOk)).Class(`quote-plan-cell-pick`, `quote-plan-cell-money`, `quote-plan-cell-money-right`)
 }
 
 func QuotePlanDesktopSelectedAmountVisionCellView(x QuotePlan_t, showBase bool) Elem_t {
@@ -414,40 +414,38 @@ func QuotePlanDesktopSelectedAmountVisionCellView(x QuotePlan_t, showBase bool) 
 	return Div(PriceText(amount, addon.priceOk)).Class(`quote-plan-cell-pick`, `quote-plan-cell-money`)
 }
 
-func QuotePlanDesktopSelectedAmountRow(row QuotePlan_t, categs []Categ_t, showVision, showBase bool) Elem_t {
-	total := row.surcharge
-	planAmount := row.planSurcharge
-	if showBase {
-		total = row.base
-		planAmount = row.planBase
-	}
+func QuotePlanDesktopSelectedAmountRow(row QuotePlan_t, categs []Categ_t, showBase bool) Elem_t {
+	planAmount, planOk := row.planSurcharge, true
+	if showBase { planAmount, planOk = row.planBase, row.planOk }
+	planValue := `&nbsp;`
+	if planOk { planValue = PriceText(planAmount, true) }
 
 	var cols []Elem_t
 	cols = append(cols,
-		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-action-cell`, `quote-plan-selected-detail-empty`),
-		Div(PriceText(total, true)).Class(`quote-plan-cell`, `quote-plan-total-cell`),
-		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`, `quote-plan-selected-detail-empty`),
-		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`, `quote-plan-selected-detail-empty`),
-		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-gap-cell`, `quote-plan-selected-detail-empty`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-action-cell`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-gap-cell`),
 		Div().Class(`quote-plan-cell`, `quote-plan-name-cell`, `quote-plan-selected-detail-name`).Wrap(
 			Div().Class(`quote-plan-selected-detail-split`).Wrap(
-				Div(PriceText(planAmount, row.planOk)).Class(`quote-plan-selected-detail-split-left`),
-				Div(`&nbsp;`).Class(`quote-plan-selected-detail-split-right`, `quote-plan-selected-detail-empty`),
+				Div(planValue).Class(`quote-plan-selected-detail-split-left`),
+				Div(`&nbsp;`).Class(`quote-plan-selected-detail-split-right`),
 			),
 		),
 	)
 	for _, categ := range categs {
 		cols = append(cols, Div().Class(`quote-plan-cell`, `quote-plan-categ-cell`).Wrap(QuotePlanDesktopSelectedAmountCategCellView(row, categ.categId, showBase)))
 	}
-	if showVision {
-		cols = append(cols, Div().Class(`quote-plan-cell`).Wrap(QuotePlanDesktopSelectedAmountVisionCellView(row, showBase)))
-	}
-	cols = append(cols, Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-cell-money`, `quote-plan-cell-money-right`, `quote-plan-selected-detail-empty`))
+	cols = append(cols,
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-col-money`, `quote-plan-cell-money-right`),
+		Div(`&nbsp;`).Class(`quote-plan-cell`, `quote-plan-col-money`, `quote-plan-cell-money-right`),
+	)
 
-	rowClass := `quote-plan-table-selected-surch-row`
-	if showBase { rowClass = `quote-plan-table-selected-base-row` }
+	rowClass := `quote-plan-table-selected-extra-surch-row`
+	if showBase { rowClass = `quote-plan-table-selected-extra-base-row` }
 	return Div().
-		Class(`quote-plan-table-row`, `quote-plan-table-selected-detail-row`, rowClass).
+		Class(`quote-plan-table-row`, `quote-plan-table-selected-extra-row`, rowClass).
 		Wrap(cols)
 }
 
@@ -516,6 +514,8 @@ func QuoteDesktopSelectedPlansBox(vars QuoteVars_t) Elem_t {
 	var selectedRows []Elem_t
 	for _, x := range selectedRowsData {
 		selectedRows = append(selectedRows, QuotePlanDesktopSelectedRow(x.item, x.row, categs))
+		selectedRows = append(selectedRows, QuotePlanDesktopSelectedAmountRow(x.row, categs, true))
+		if x.row.surcharge != 0 { selectedRows = append(selectedRows, QuotePlanDesktopSelectedAmountRow(x.row, categs, false)) }
 	}
 
 	showEdit := len(selectedRows) > 0
