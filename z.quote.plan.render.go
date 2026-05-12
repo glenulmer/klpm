@@ -515,8 +515,8 @@ func QuoteFilteredPlansBox(filteredPlans []QuotePlanFiltered_t) Elem_t {
 	if len(filtered) == 0 {
 		filtered = append(filtered, Div(`No plans filtered out.`).Class(`quote-filtered-empty`))
 	}
-	return Elem(`details`).Class(`quote-filter-box`).Wrap(
-		Elem(`summary`).Class(`quote-filter-box-title`).Wrap(
+	return Div().Class(`quote-filter-box`).Wrap(
+		Div().Class(`quote-filter-box-title`).Wrap(
 			Span(`Filtered plans (` , len(filteredPlans), `)`),
 		),
 		Div().Class(`quote-filtered-list`).Wrap(filtered),

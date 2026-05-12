@@ -11,8 +11,8 @@
 	let pendingOpenSelected = false;
 	let phoneStickyOn = false;
 
-	const phoneStickyGapPx = 0;
-	const desktopLayoutQuery = window.matchMedia('(min-width: 900px)');
+	const phoneStickyGap = 0;
+	const desktopLayoutQuery = window.matchMedia('(min-width: 56.25rem)');
 	const isPhoneViewport = () => !desktopLayoutQuery.matches;
 	const desktopColWidthStyleId = 'QuoteDesktopColWidths';
 	let desktopColWidthTimer = 0;
@@ -44,7 +44,7 @@
 		style.textContent = css;
 	};
 
-	const cellNaturalWidthPx = (cell) => {
+	const cellNaturalWidth = (cell) => {
 		if (!(cell instanceof HTMLElement)) return 0;
 		const cs = window.getComputedStyle(cell);
 		const padLeft = Number.parseFloat(cs.paddingLeft || '0') || 0;
@@ -77,17 +77,17 @@
 		if (cells.length === 0) return null;
 		const colCount = cells.length;
 		const rows = [...document.querySelectorAll('.quote-plans-desktop-host .quote-plan-table-row, .quote-selected-desktop-host .quote-plan-table-row')];
-		const widthsPx = Array(colCount).fill(0);
+		const widthsRaw = Array(colCount).fill(0);
 		for (const row of rows) {
 			if (!(row instanceof HTMLElement)) continue;
 			const rowCells = [...row.querySelectorAll(':scope > .quote-plan-cell')];
 			for (let i = 0; i < colCount; i++) {
 				const cell = rowCells[i];
 				if (!(cell instanceof HTMLElement)) continue;
-				widthsPx[i] = Math.max(widthsPx[i], cellNaturalWidthPx(cell));
+				widthsRaw[i] = Math.max(widthsRaw[i], cellNaturalWidth(cell));
 			}
 		}
-		return widthsPx.map((px) => Number((px / root).toFixed(4)));
+		return widthsRaw.map((value) => Number((value / root).toFixed(4)));
 	};
 
 	const syncDesktopPlanColumnWidths = () => {
@@ -156,12 +156,13 @@
 
 	const syncPhoneStickyLayout = (info, selected, plans) => {
 		if (!phoneStickyOn) return;
+		const rootFont = Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16') || 16;
 		const top = Number.parseFloat(window.getComputedStyle(info).top || '0') || 0;
-		const selectedTop = top + info.getBoundingClientRect().height + phoneStickyGapPx;
-		selected.style.top = `${selectedTop}px`;
+		const selectedTop = top + info.getBoundingClientRect().height + phoneStickyGap;
+		selected.style.top = `${(selectedTop / rootFont).toFixed(4)}rem`;
 		const selectedRect = selected.getBoundingClientRect();
 		const stackBottom = selectedRect.top + selectedRect.height;
-		plans.style.paddingTop = `${Math.max(0, Math.ceil(stackBottom + phoneStickyGapPx))}px`;
+		plans.style.paddingTop = `${(Math.max(0, Math.ceil(stackBottom + phoneStickyGap)) / rootFont).toFixed(4)}rem`;
 	};
 
 	const syncPhoneSticky = () => {
@@ -206,8 +207,8 @@
 
 	const syncDesktopStickyOffsets = () => {
 		const root = document.documentElement;
-		const rootFontPx = Number.parseFloat(window.getComputedStyle(root).fontSize || '16') || 16;
-		const pxToRem = (px) => (px / rootFontPx).toFixed(4);
+		const rootFont = Number.parseFloat(window.getComputedStyle(root).fontSize || '16') || 16;
+		const toRem = (value) => (value / rootFont).toFixed(4);
 		if (isPhoneViewport()) {
 			root.style.setProperty('--quote-qi-sticky-offset', '0rem');
 			root.style.setProperty('--quote-sticky-stack-offset', '0rem');
@@ -230,8 +231,8 @@
 		}
 		const qiH = qiWrap.getBoundingClientRect().height;
 		const selectedH = selectedHost.getBoundingClientRect().height;
-		root.style.setProperty('--quote-qi-sticky-offset', `${pxToRem(qiH)}rem`);
-		root.style.setProperty('--quote-sticky-stack-offset', `${pxToRem(qiH + selectedH)}rem`);
+		root.style.setProperty('--quote-qi-sticky-offset', `${toRem(qiH)}rem`);
+		root.style.setProperty('--quote-sticky-stack-offset', `${toRem(qiH + selectedH)}rem`);
 
 		const plans = document.getElementById('QuotePlans');
 		const plansHost = document.querySelector('.quote-plans-desktop-host');
@@ -240,7 +241,7 @@
 		if (!(plansTable instanceof HTMLElement)) return;
 		const tableW = Math.ceil(plansTable.getBoundingClientRect().width);
 		if (tableW <= 0) return;
-		const w = `${tableW}px`;
+		const w = `${toRem(tableW)}rem`;
 		if (plans instanceof HTMLElement) plans.style.width = w;
 		selectedHost.style.width = w;
 		if (plansHost instanceof HTMLElement) plansHost.style.width = w;

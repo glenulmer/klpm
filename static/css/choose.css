@@ -687,38 +687,16 @@
 
 .quote-filter-box-title {
 	padding: 0.38rem 0.52rem;
-	list-style: none;
 	position: relative;
-	padding-left: 1.15rem;
 	font-size: 1rem;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: default;
 	background: #e6f2fc;
 }
 
-.quote-filter-box-title::-webkit-details-marker {
-	display: none;
-}
-
-.quote-filter-box-title::marker {
-	content: "";
-}
-
 .quote-filter-box-title::before {
-	content: "";
-	position: absolute;
-	left: 0.4rem;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border-top: 0.26rem solid transparent;
-	border-bottom: 0.26rem solid transparent;
-	border-left: 0.4rem solid #43536b;
-	transform: translateY(-50%);
-}
-
-details[open] > .quote-filter-box-title::before {
-	transform: translateY(-50%) rotate(90deg);
+	content: none;
+	display: none;
 }
 
 .quote-filter-box .quote-filtered-list {
@@ -749,7 +727,7 @@ details[open] > .quote-filter-box-title::before {
 	}
 }
 
-@media (max-width: 899px) {
+@media (max-width: 56.1875rem) {
 	.quote-field > select,
 	.quote-control > select,
 	.quote-info-grid-desktop .quote-field > select,
@@ -1222,7 +1200,7 @@ details[open] > .quote-filter-box-title::before {
 	background: #fffbf4;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25rem) {
 	:root {
 		--bg: #f7f4ed;
 		--panel: #fffdf8;
@@ -1239,7 +1217,7 @@ details[open] > .quote-filter-box-title::before {
 		padding: 0;
 		background: var(--bg);
 		color: var(--text);
-		font: 13px/1.25 "Helvetica Neue", Arial, sans-serif;
+		font: 0.8125rem/1.25 "Helvetica Neue", Arial, sans-serif;
 	}
 
 	.quote-page-phone {

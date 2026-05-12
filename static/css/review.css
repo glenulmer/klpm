@@ -3,6 +3,10 @@
 	gap: 0;
 }
 
+:root {
+	--editq-scale: 1;
+}
+
 .editq-card-title-row {
 	display: flex;
 	align-items: center;
@@ -33,7 +37,7 @@
 	color: #1f3e63;
 	text-decoration: none;
 	font-family: inherit;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-weight: 700;
 	line-height: calc(var(--app-btn-height) - 0.125rem);
 	white-space: nowrap;
@@ -60,7 +64,7 @@
 
 /* dead selector:
 .editq-cust-preview {
-	font-size: 0.77rem;
+	font-size: calc(0.77rem * var(--editq-scale));
 	color: #36506a;
 }
 */
@@ -72,7 +76,7 @@
 */
 
 .editq-section-title {
-	font-size: 0.85rem;
+	font-size: calc(0.85rem * var(--editq-scale));
 	font-weight: 700;
 	margin-bottom: 0.45rem;
 }
@@ -101,7 +105,7 @@
 
 .editq-preex-plan {
 	margin-top: 0.35rem;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-weight: 700;
 	color: #2a4158;
 	display: block;
@@ -114,14 +118,14 @@
 
 .editq-preex-plan-age {
 	margin-top: 0.1rem;
-	font-size: 0.68rem;
+	font-size: calc(0.68rem * var(--editq-scale));
 	font-weight: 400;
 	color: #4c6278;
 	text-align: left;
 }
 
 .editq-preex-categ {
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-weight: 400;
 }
 
@@ -148,7 +152,7 @@
 	border: 0.0625rem solid #b1c4d7;
 	border-radius: 0.33rem;
 	background: #fff;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 }
 
 .editq-preex-mode {
@@ -157,7 +161,7 @@
 }
 
 .editq-preex-empty {
-	font-size: 0.77rem;
+	font-size: calc(0.77rem * var(--editq-scale));
 	color: #617587;
 }
 
@@ -196,13 +200,13 @@
 
 .editq-preex-summary-base {
 	color: #1f1f1f;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-style: italic;
 }
 
 .editq-preex-summary-preex {
 	color: #1e6996;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-style: italic;
 	text-align: right;
 	padding-right: 0.36rem;
@@ -213,7 +217,7 @@
 	text-align: left;
 	color: #1f1f1f;
 	font-weight: 700;
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-style: italic;
 }
 
@@ -234,7 +238,7 @@
 
 /* dead selector:
 .editq-label {
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-weight: 700;
 	color: #38526d;
 }
@@ -250,7 +254,7 @@
 	background: #fff;
 	color: inherit;
 	font: inherit;
-	font-size: 0.86rem;
+	font-size: calc(0.86rem * var(--editq-scale));
 }
 
 .editq-grow-input {
@@ -269,7 +273,7 @@
 	background: #edf5ff;
 	color: #20456c;
 	font-family: inherit;
-	font-size: 0.79rem;
+	font-size: calc(0.79rem * var(--editq-scale));
 	font-weight: 700;
 	cursor: pointer;
 }
@@ -294,7 +298,7 @@
 .editq-dependant-head .editq-del-btn {
 	height: 1.52rem;
 	min-width: 1.52rem;
-	font-size: 0.66rem;
+	font-size: calc(0.66rem * var(--editq-scale));
 	border-radius: 0.3rem;
 }
 */
@@ -324,7 +328,7 @@
 
 /* dead selector:
 .editq-dependant-title {
-	font-size: 0.81rem;
+	font-size: calc(0.81rem * var(--editq-scale));
 	font-weight: 700;
 }
 */
@@ -345,7 +349,7 @@
 	background: #fff;
 	color: inherit;
 	font: inherit;
-	font-size: 0.86rem;
+	font-size: calc(0.86rem * var(--editq-scale));
 }
 
 .editq-dep-birth {
@@ -377,7 +381,7 @@
 }
 
 .editq-review-client-name {
-	font-size: 0.76rem;
+	font-size: calc(0.76rem * var(--editq-scale));
 	font-weight: 700;
 }
 
@@ -389,13 +393,13 @@
 }
 
 .editq-review-client-key {
-	font-size: 0.66rem;
+	font-size: calc(0.66rem * var(--editq-scale));
 	font-weight: 700;
 	color: #425a73;
 }
 
 .editq-review-client-val {
-	font-size: 0.66rem;
+	font-size: calc(0.66rem * var(--editq-scale));
 }
 
 .editq-review-plans {
@@ -409,7 +413,7 @@
 }
 
 .editq-review-plan-title {
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	font-weight: 700;
 }
 
@@ -417,7 +421,7 @@
 	display: flex;
 	flex-wrap: nowrap;
 	gap: 0.4rem;
-	font-size: 0.61rem;
+	font-size: calc(0.61rem * var(--editq-scale));
 	color: #4a6078;
 	white-space: nowrap;
 	overflow-x: auto;
@@ -446,7 +450,7 @@
 }
 
 .editq-review-row-head {
-	font-size: 0.6rem;
+	font-size: calc(0.6rem * var(--editq-scale));
 	font-weight: 700;
 	color: #445d78;
 }
@@ -457,12 +461,12 @@
 }
 
 .editq-review-col-label {
-	font-size: 0.64rem;
+	font-size: calc(0.64rem * var(--editq-scale));
 	min-width: 0;
 }
 
 .editq-review-col-money {
-	font-size: 0.63rem;
+	font-size: calc(0.63rem * var(--editq-scale));
 	text-align: right;
 	white-space: nowrap;
 }
@@ -472,7 +476,7 @@
 }
 
 .editq-review-empty {
-	font-size: 0.72rem;
+	font-size: calc(0.72rem * var(--editq-scale));
 	color: #5a7088;
 }
 
@@ -517,13 +521,13 @@
 }
 
 .editq-dep-vision .editq-check-text {
-	font-size: 0.55rem;
+	font-size: calc(0.55rem * var(--editq-scale));
 }
 
 .editq-dep-del {
 	height: 1.2rem;
 	min-width: 1.2rem;
-	font-size: 0.66rem;
+	font-size: calc(0.66rem * var(--editq-scale));
 	border-radius: 0.3rem;
 	align-self: center;
 }
@@ -538,7 +542,7 @@
 }
 
 .editq-check-text {
-	font-size: 0.82rem;
+	font-size: calc(0.82rem * var(--editq-scale));
 }
 
 
@@ -550,16 +554,17 @@
 	}
 	
 	:root {
-		--editq-bg: #fbfaf7;
-		--editq-text: #474747;
-		--editq-card-border: #d6cfbb;
+		--editq-scale: 1.1;
+		--editq-bg: #f7f4ed;
+		--editq-text: #3f3b33;
+		--editq-card-border: #d8d0bc;
 		--editq-card-bg: #fffdf8;
-		--editq-card-head-bg: #fff4d5;
-		--editq-card-head-text: #2f2f2f;
-		--editq-line: #ece3c6;
+		--editq-card-head-bg: #f2ebda;
+		--editq-card-head-text: #3f3b33;
+		--editq-line: #e9e2d1;
 		--editq-input-border: #b7b7b7;
-		--editq-muted: #6e6e6e;
-		--editq-subtle: #5e5e5e;
+		--editq-muted: #6a655b;
+		--editq-subtle: #6a655b;
 		--editq-btn-border: #b7b7b7;
 		--editq-btn-bg: #fff;
 		--editq-btn-text: #4f4f4f;
@@ -573,7 +578,7 @@
 	}
 	
 	.editq-page {
-		max-width: 37rem;
+		max-width: calc(37rem * var(--editq-scale));
 		margin: 0;
 		padding: 0 1rem 1.2rem;
 	}
@@ -586,7 +591,7 @@
 	.editq-fold-card,
 	.editq-dependant {
 		border: 0.0625rem solid var(--editq-card-border);
-		border-radius: 0.625rem;
+		border-radius: 0;
 		background: var(--editq-card-bg);
 		overflow: hidden;
 	}
@@ -596,7 +601,7 @@
 		padding: 0.38rem 0.52rem;
 		background: var(--editq-card-head-bg);
 		color: var(--editq-card-head-text);
-		font-size: 1rem;
+		font-size: calc(1rem * var(--editq-scale));
 		font-weight: 700;
 	}
 	
@@ -630,7 +635,7 @@
 		color: var(--editq-btn-text);
 		text-decoration: none;
 		font-family: inherit;
-		font-size: 0.72rem;
+		font-size: calc(0.72rem * var(--editq-scale));
 		font-weight: 700;
 		line-height: 1;
 		white-space: nowrap;
@@ -687,7 +692,7 @@
 	
 	/* dead selector:
 	.editq-cust-preview {
-		font-size: 0.8rem;
+		font-size: calc(0.8rem * var(--editq-scale));
 		color: #324860;
 	}
 	*/
@@ -712,7 +717,7 @@
 	}
 	
 	.editq-section-title {
-		font-size: 0.88rem;
+		font-size: calc(0.88rem * var(--editq-scale));
 		font-weight: 700;
 		margin-bottom: 0.5rem;
 	}
@@ -741,7 +746,7 @@
 	
 	.editq-preex-plan {
 		margin-top: 0.45rem;
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-weight: 700;
 		color: #4f4f4f;
 		display: flex;
@@ -760,13 +765,13 @@
 	
 	.editq-preex-plan-age {
 		margin-top: 0.12rem;
-		font-size: 0.7rem;
+		font-size: calc(0.7rem * var(--editq-scale));
 		font-weight: 400;
 		color: var(--editq-muted);
 	}
 	
 	.editq-preex-categ {
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-weight: 400;
 	}
 	
@@ -792,11 +797,11 @@
 		border: 0.0625rem solid var(--editq-input-border);
 		border-radius: 0.32rem;
 		background: #fff;
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 	}
 	
 	.editq-preex-empty {
-		font-size: 0.8rem;
+		font-size: calc(0.8rem * var(--editq-scale));
 		color: var(--editq-muted);
 	}
 	
@@ -835,13 +840,13 @@
 	
 	.editq-preex-summary-base {
 		color: #1f1f1f;
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-style: italic;
 	}
 	
 	.editq-preex-summary-preex {
 		color: var(--editq-accent);
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-style: italic;
 		text-align: right;
 		padding-right: 0.4rem;
@@ -852,7 +857,7 @@
 		text-align: left;
 		color: var(--editq-card-head-text);
 		font-weight: 700;
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-style: italic;
 	}
 	
@@ -878,7 +883,7 @@
 	
 	/* dead selector:
 	.editq-label {
-		font-size: 0.75rem;
+		font-size: calc(0.75rem * var(--editq-scale));
 		font-weight: 700;
 		color: #37506b;
 	}
@@ -894,7 +899,7 @@
 		background: #fff;
 		color: inherit;
 		font: inherit;
-		font-size: 0.82rem;
+		font-size: calc(0.82rem * var(--editq-scale));
 	}
 	
 	.editq-grow-input {
@@ -913,7 +918,7 @@
 		background: #fff8e6;
 		color: var(--editq-btn-text);
 		font-family: inherit;
-		font-size: 0.78rem;
+		font-size: calc(0.78rem * var(--editq-scale));
 		font-weight: 700;
 		cursor: pointer;
 	}
@@ -927,7 +932,7 @@
 	.editq-dependant-head .editq-del-btn {
 		height: 1.55rem;
 		min-width: 1.55rem;
-		font-size: 0.67rem;
+		font-size: calc(0.67rem * var(--editq-scale));
 		border-radius: 0.28rem;
 	}
 	*/
@@ -950,7 +955,7 @@
 	
 	/* dead selector:
 	.editq-dependant-title {
-		font-size: 0.82rem;
+		font-size: calc(0.82rem * var(--editq-scale));
 		font-weight: 700;
 	}
 	*/
@@ -970,7 +975,7 @@
 	.editq-review-client,
 	.editq-review-plan {
 		border: 0.0625rem solid var(--editq-card-border);
-		border-radius: 0.4rem;
+		border-radius: 0;
 		background: #fffef8;
 		padding: 0.45rem 0.5rem;
 	}
@@ -981,7 +986,7 @@
 	}
 	
 	.editq-review-client-name {
-		font-size: 0.82rem;
+		font-size: calc(0.82rem * var(--editq-scale));
 		font-weight: 700;
 	}
 	
@@ -993,13 +998,13 @@
 	}
 	
 	.editq-review-client-key {
-		font-size: 0.72rem;
+		font-size: calc(0.72rem * var(--editq-scale));
 		font-weight: 700;
 		color: var(--editq-subtle);
 	}
 	
 	.editq-review-client-val {
-		font-size: 0.72rem;
+		font-size: calc(0.72rem * var(--editq-scale));
 	}
 	
 	.editq-review-plans {
@@ -1013,7 +1018,7 @@
 	}
 	
 	.editq-review-plan-title {
-		font-size: 0.78rem;
+		font-size: calc(0.78rem * var(--editq-scale));
 		font-weight: 700;
 	}
 	
@@ -1021,7 +1026,7 @@
 		display: flex;
 		flex-wrap: nowrap;
 		gap: 0.7rem;
-		font-size: 0.7rem;
+		font-size: calc(0.7rem * var(--editq-scale));
 		color: var(--editq-muted);
 		white-space: nowrap;
 	}
@@ -1049,7 +1054,7 @@
 	}
 	
 	.editq-review-row-head {
-		font-size: 0.67rem;
+		font-size: calc(0.67rem * var(--editq-scale));
 		font-weight: 700;
 		color: var(--editq-subtle);
 	}
@@ -1060,12 +1065,12 @@
 	}
 	
 	.editq-review-col-label {
-		font-size: 0.72rem;
+		font-size: calc(0.72rem * var(--editq-scale));
 		min-width: 0;
 	}
 	
 	.editq-review-col-money {
-		font-size: 0.72rem;
+		font-size: calc(0.72rem * var(--editq-scale));
 		text-align: right;
 		white-space: nowrap;
 	}
@@ -1075,7 +1080,7 @@
 	}
 	
 	.editq-review-empty {
-		font-size: 0.78rem;
+		font-size: calc(0.78rem * var(--editq-scale));
 		color: var(--editq-muted);
 	}
 	
@@ -1089,7 +1094,7 @@
 		background: #fff;
 		color: inherit;
 		font: inherit;
-		font-size: 0.82rem;
+		font-size: calc(0.82rem * var(--editq-scale));
 	}
 
 	.editq-dep-birth {
@@ -1113,7 +1118,7 @@
 	}
 	
 	.editq-check-text {
-		font-size: 0.8rem;
+		font-size: calc(0.8rem * var(--editq-scale));
 	}
 	
 	.editq-dep-vision {
@@ -1131,14 +1136,14 @@
 	}
 	
 	.editq-dep-vision .editq-check-text {
-		font-size: 0.62rem;
+		font-size: calc(0.62rem * var(--editq-scale));
 		text-align: center;
 	}
 	
 	.editq-dep-del {
 		height: 1.55rem;
 		min-width: 1.55rem;
-		font-size: 0.67rem;
+		font-size: calc(0.67rem * var(--editq-scale));
 		border-radius: 0.28rem;
 		align-self: center;
 		justify-self: center;
