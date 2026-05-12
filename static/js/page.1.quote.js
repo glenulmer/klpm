@@ -14,99 +14,6 @@
 	const phoneStickyGap = 0;
 	const desktopLayoutQuery = window.matchMedia('(min-width: 56.25rem)');
 	const isPhoneViewport = () => !desktopLayoutQuery.matches;
-	const desktopColWidthStyleId = 'QuoteDesktopColWidths';
-	let desktopColWidthTimer = 0;
-
-	const removeDesktopColWidths = () => {
-		const old = document.getElementById(desktopColWidthStyleId);
-		if (old) old.remove();
-	};
-
-	const applyDesktopColWidths = (widthsRem) => {
-		if (!Array.isArray(widthsRem) || widthsRem.length === 0) return;
-		let css = '';
-		for (let i = 0; i < widthsRem.length; i++) {
-			const w = Number(widthsRem[i]);
-			if (!Number.isFinite(w) || w <= 0) continue;
-			const n = i + 1;
-			const rem = `${w.toFixed(4)}rem`;
-			css += `.quote-plans-desktop-host .quote-plan-table-row > .quote-plan-cell:nth-child(${n}),`;
-			css += `.quote-selected-desktop-host .quote-plan-table-row > .quote-plan-cell:nth-child(${n}){`;
-			css += `width:${rem};min-width:${rem};max-width:${rem};}`;
-		}
-		if (!css) return;
-		let style = document.getElementById(desktopColWidthStyleId);
-		if (!(style instanceof HTMLStyleElement)) {
-			style = document.createElement('style');
-			style.id = desktopColWidthStyleId;
-			document.head.appendChild(style);
-		}
-		style.textContent = css;
-	};
-
-	const cellNaturalWidth = (cell) => {
-		if (!(cell instanceof HTMLElement)) return 0;
-		const cs = window.getComputedStyle(cell);
-		const padLeft = Number.parseFloat(cs.paddingLeft || '0') || 0;
-		const padRight = Number.parseFloat(cs.paddingRight || '0') || 0;
-		const borderLeft = Number.parseFloat(cs.borderLeftWidth || '0') || 0;
-		const borderRight = Number.parseFloat(cs.borderRightWidth || '0') || 0;
-
-		let contentWidth = 0;
-		const range = document.createRange();
-		range.selectNodeContents(cell);
-		const rect = range.getBoundingClientRect();
-		if (Number.isFinite(rect.width)) contentWidth = Math.max(contentWidth, rect.width);
-		for (const el of cell.children) {
-			if (!(el instanceof HTMLElement)) continue;
-			const w = el.getBoundingClientRect().width;
-			if (Number.isFinite(w)) contentWidth = Math.max(contentWidth, w);
-		}
-		return contentWidth + padLeft + padRight + borderLeft + borderRight;
-	};
-
-	const measureDesktopPlanColumnWidths = () => {
-		if (isPhoneViewport()) {
-			removeDesktopColWidths();
-			return null;
-		}
-		const head = document.querySelector('.quote-plans-desktop-host .quote-plan-table-head');
-		if (!(head instanceof HTMLElement)) return null;
-		const root = Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16') || 16;
-		const cells = [...head.querySelectorAll(':scope > .quote-plan-cell')];
-		if (cells.length === 0) return null;
-		const colCount = cells.length;
-		const rows = [...document.querySelectorAll('.quote-plans-desktop-host .quote-plan-table-row, .quote-selected-desktop-host .quote-plan-table-row')];
-		const widthsRaw = Array(colCount).fill(0);
-		for (const row of rows) {
-			if (!(row instanceof HTMLElement)) continue;
-			const rowCells = [...row.querySelectorAll(':scope > .quote-plan-cell')];
-			for (let i = 0; i < colCount; i++) {
-				const cell = rowCells[i];
-				if (!(cell instanceof HTMLElement)) continue;
-				widthsRaw[i] = Math.max(widthsRaw[i], cellNaturalWidth(cell));
-			}
-		}
-		return widthsRaw.map((value) => Number((value / root).toFixed(4)));
-	};
-
-	const syncDesktopPlanColumnWidths = () => {
-		if (isPhoneViewport()) {
-			removeDesktopColWidths();
-			return;
-		}
-		removeDesktopColWidths();
-		window.requestAnimationFrame(() => {
-			const widthsRem = measureDesktopPlanColumnWidths();
-			if (!widthsRem) return;
-			applyDesktopColWidths(widthsRem);
-		});
-	};
-
-	const scheduleDesktopPlanColumnWidths = (wait = 80) => {
-		window.clearTimeout(desktopColWidthTimer);
-		desktopColWidthTimer = window.setTimeout(syncDesktopPlanColumnWidths, wait);
-	};
 
 	const captureFoldStates = () => {
 		for (const id of foldIds) {
@@ -212,14 +119,6 @@
 		if (isPhoneViewport()) {
 			root.style.setProperty('--quote-qi-sticky-offset', '0rem');
 			root.style.setProperty('--quote-sticky-stack-offset', '0rem');
-			const plans = document.getElementById('QuotePlans');
-			const selectedHost = document.querySelector('.quote-selected-desktop-host');
-			const plansHost = document.querySelector('.quote-plans-desktop-host');
-			const filterBox = document.querySelector('#QuotePlans > .quote-filter-box');
-			if (plans instanceof HTMLElement) plans.style.width = '';
-			if (selectedHost instanceof HTMLElement) selectedHost.style.width = '';
-			if (plansHost instanceof HTMLElement) plansHost.style.width = '';
-			if (filterBox instanceof HTMLElement) filterBox.style.width = '';
 			return;
 		}
 		const qiWrap = document.querySelector('.quote-qi-sticky-wrap');
@@ -234,18 +133,6 @@
 		root.style.setProperty('--quote-qi-sticky-offset', `${toRem(qiH)}rem`);
 		root.style.setProperty('--quote-sticky-stack-offset', `${toRem(qiH + selectedH)}rem`);
 
-		const plans = document.getElementById('QuotePlans');
-		const plansHost = document.querySelector('.quote-plans-desktop-host');
-		const plansTable = document.querySelector('.quote-plans-desktop-host .quote-plan-table');
-		const filterBox = document.querySelector('#QuotePlans > .quote-filter-box');
-		if (!(plansTable instanceof HTMLElement)) return;
-		const tableW = Math.ceil(plansTable.getBoundingClientRect().width);
-		if (tableW <= 0) return;
-		const w = `${toRem(tableW)}rem`;
-		if (plans instanceof HTMLElement) plans.style.width = w;
-		selectedHost.style.width = w;
-		if (plansHost instanceof HTMLElement) plansHost.style.width = w;
-		if (filterBox instanceof HTMLElement) filterBox.style.width = w;
 	};
 
 	const scheduleStickySync = () => {
@@ -402,15 +289,14 @@
 						target.outerHTML = msg.content;
 					}
 				}
-				applyFoldStates();
-				applyUiState(uiState);
-				initSickCover();
-				initDateControls();
-				syncPhoneSticky();
-				scheduleDesktopPlanColumnWidths(20);
-			})
-			.catch(() => {});
-	};
+					applyFoldStates();
+					applyUiState(uiState);
+					initSickCover();
+					initDateControls();
+					syncPhoneSticky();
+				})
+				.catch(() => {});
+		};
 
 	const schedule = (name, value, wait, originEl = null) => {
 		window.clearTimeout(timer);
@@ -507,10 +393,7 @@
 	document.addEventListener('click', onFoldSummaryClick, true);
 	window.addEventListener('scroll', scheduleStickySync, { passive: true });
 	window.addEventListener('resize', scheduleStickySync);
-	desktopLayoutQuery.addEventListener('change', () => scheduleDesktopPlanColumnWidths(10));
-	window.addEventListener('resize', () => scheduleDesktopPlanColumnWidths(120));
 	initSickCover();
 	initDateControls();
 	scheduleStickySync();
-	scheduleDesktopPlanColumnWidths(40);
 })();

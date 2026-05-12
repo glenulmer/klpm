@@ -1,0 +1,135 @@
+@media (min-width: 56.25rem) {
+	:root {
+		--dp1_act:         1.5rem;
+		--dp1_ded:         3.0rem;
+		--dp1_ncb:         3.0rem;
+		--dp1_total:       3.0rem;
+		--dp1_gap_tp:      0.2rem;
+		--dp1_plan:       14.0rem;
+		--dp1_sick:        4.0rem;
+		--dp1_pvn:         2.5rem;
+		--dp1_hosp:        6.5rem;
+		--dp1_dental:      6.0rem;
+		--dp1_cons:        4.5rem;
+		--dp1_nat:         4.5rem;
+		--dp1_pit:         4.0rem;
+		--dp1_spec:        5.5rem;
+		--dp1_glasses:     3.0rem;
+		--dp1_comm:        4.0rem;
+		--dp1_tail:        0.5rem;
+		--dp1_grid_wid: calc(
+			var(--dp1_act) +
+			var(--dp1_ded) +
+			var(--dp1_ncb) +
+			var(--dp1_total) +
+			var(--dp1_gap_tp) +
+			var(--dp1_plan) +
+			var(--dp1_sick) +
+			var(--dp1_pvn) +
+			var(--dp1_hosp) +
+			var(--dp1_dental) +
+			var(--dp1_cons) +
+			var(--dp1_nat) +
+			var(--dp1_pit) +
+			var(--dp1_spec) +
+			var(--dp1_glasses) +
+			var(--dp1_comm) +
+			var(--dp1_tail)
+		);
+	}
+
+	#QuotePlans,
+	.quote-plans-desktop-host,
+	.quote-selected-desktop-host,
+	#QuotePlans > .quote-filter-box {
+		width: var(--dp1_grid_wid);
+		min-width: var(--dp1_grid_wid);
+		max-width: var(--dp1_grid_wid);
+	}
+
+	.quote-plans-desktop-host .quote-plan-table,
+	.quote-selected-desktop-host .quote-plan-table {
+		display: block;
+		width: var(--dp1_grid_wid);
+		min-width: var(--dp1_grid_wid);
+		max-width: var(--dp1_grid_wid);
+	}
+
+	.quote-plans-desktop-host .quote-plan-table-row,
+	.quote-selected-desktop-host .quote-plan-table-row {
+		display: grid;
+		grid-template-columns:
+			var(--dp1_act)
+			var(--dp1_ded)
+			var(--dp1_ncb)
+			var(--dp1_total)
+			var(--dp1_gap_tp)
+			var(--dp1_plan)
+			var(--dp1_sick)
+			var(--dp1_pvn)
+			var(--dp1_hosp)
+			var(--dp1_dental)
+			var(--dp1_cons)
+			var(--dp1_nat)
+			var(--dp1_pit)
+			var(--dp1_spec)
+			var(--dp1_glasses)
+			var(--dp1_comm)
+			var(--dp1_tail);
+	}
+
+	.quote-plans-desktop-host .quote-plan-cell,
+	.quote-selected-desktop-host .quote-plan-cell {
+		display: block;
+	}
+
+	.quote-plans-desktop-host .quote-plan-gap-cell,
+	.quote-selected-desktop-host .quote-plan-gap-cell {
+		padding: 0;
+		font-size: 0;
+		line-height: 0;
+	}
+
+	.quote-plans-desktop-host .quote-plan-categ-head,
+	.quote-selected-desktop-host .quote-plan-categ-head,
+	.quote-plans-desktop-host .quote-plan-categ-cell,
+	.quote-selected-desktop-host .quote-plan-categ-cell,
+	.quote-plans-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick,
+	.quote-selected-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick,
+	.quote-plans-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick > select,
+	.quote-selected-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick > select {
+		text-align: left;
+		text-align-last: left;
+	}
+
+	.quote-plans-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick,
+	.quote-selected-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick,
+	.quote-plans-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick > select,
+	.quote-selected-desktop-host .quote-plan-categ-cell .quote-plan-cell-pick > select {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+	}
+
+	.quote-plans-desktop-host .quote-plan-col-money,
+	.quote-selected-desktop-host .quote-plan-col-money,
+	.quote-plans-desktop-host .quote-plan-col-total,
+	.quote-selected-desktop-host .quote-plan-col-total,
+	.quote-plans-desktop-host .quote-plan-cell-money,
+	.quote-selected-desktop-host .quote-plan-cell-money,
+	.quote-plans-desktop-host .quote-plan-money-head-right,
+	.quote-selected-desktop-host .quote-plan-money-head-right,
+	.quote-plans-desktop-host .quote-plan-cell-money-right,
+	.quote-selected-desktop-host .quote-plan-cell-money-right {
+		text-align: right;
+	}
+
+	.quote-plans-desktop-host .quote-plan-money-head-right,
+	.quote-selected-desktop-host .quote-plan-money-head-right,
+	.quote-plans-desktop-host .quote-plan-cell-money-right,
+	.quote-selected-desktop-host .quote-plan-cell-money-right {
+		padding-right: 0;
+	}
+}
