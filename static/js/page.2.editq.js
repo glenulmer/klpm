@@ -158,7 +158,9 @@
 	};
 
 	const onClick = (ev) => {
-		const el = ev.target;
+		const target = ev.target;
+		if (!(target instanceof HTMLElement)) return;
+		const el = target.closest('#EditQForm button[name]');
 		if (!(el instanceof HTMLButtonElement)) return;
 		if (!el.matches(selector)) return;
 		const name = el.getAttribute('name') || '';

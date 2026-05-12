@@ -496,13 +496,14 @@ func EditQAddDependant(state *State_t) bool {
 	QuoteEnsureDefaults(state)
 	deps := EditQDependants(state.quote, false)
 	if len(deps) >= editQDepMaxCount { return false }
+	childNo := len(deps) + 1
 	next := 1
 	for _, dep := range deps {
 		if dep.depId >= next { next = dep.depId + 1 }
 	}
 	state.quote.dependants = append(state.quote.dependants, Dependant_t{
 		depId: next,
-		name: ``,
+		name: Str(`Child `, childNo),
 		birth: QuoteParseBirthDate(EditQDefaultDependantBirth(state.quote)),
 		vision: false,
 		preexByChoice: make(map[ChoiceId_t][]Preex_t),

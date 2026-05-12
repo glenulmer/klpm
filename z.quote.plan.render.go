@@ -9,6 +9,9 @@ import (
 	. "klpm/lib/output"
 )
 
+const quoteIconCartSVG = `<svg class="quote-plan-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h2l2 10h10l2-7H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="10" cy="19" r="1.3" fill="currentColor"></circle><circle cx="17" cy="19" r="1.3" fill="currentColor"></circle></svg>`
+const quoteIconTrashSVG = `<svg class="quote-plan-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M9 7V5.6h6V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 7v11h8V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 10.2v5.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><path d="M13 10.2v5.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>`
+
 func QuotePlanAddonByTag(x QuotePlan_t, tag string) (QuotePlanAddon_t, bool) {
 	tag = Lower(Trim(tag))
 	for _, addon := range x.addons {
@@ -73,7 +76,7 @@ func QuotePlanCardView(x QuotePlan_t) Elem_t {
 	return Div().Class(`quote-plan-card`).KV(`data-plan-id`, Str(x.planId)).Wrap(
 		Div().Class(`quote-plan-head`).Wrap(
 			Div().Class(`quote-plan-head-main`).Wrap(
-				Elem(`button`).Type(`button`).Name(QuoteSelectedAddControlName(x.planId)).Value(Str(x.planId)).Class(`quote-plan-pick-btn`, `quote-plan-pick-add`).Text(`🛒`),
+				QuotePlanActionButton(QuoteSelectedAddControlName(x.planId), Str(x.planId), `🛒`, `quote-plan-pick-add`),
 				Div(x.label).Class(`quote-plan-label`),
 			),
 			Div().Class(`quote-plan-total`).Wrap(
@@ -133,7 +136,7 @@ func QuoteSelectedPlanCardView(item QuoteSelectedItem_t, row QuotePlan_t) Elem_t
 		Wrap(
 		Div().Class(`quote-plan-head`).Wrap(
 			Div().Class(`quote-plan-head-main`).Wrap(
-				Elem(`button`).Type(`button`).Name(QuoteSelectedDelControlName(item.itemId)).Value(Str(item.itemId)).Class(`quote-plan-pick-btn`, `quote-plan-pick-del`).Text(`🗑`),
+				QuotePlanActionButton(QuoteSelectedDelControlName(item.itemId), Str(item.itemId), `🗑`, `quote-plan-pick-del`),
 				Div(row.label).Class(`quote-plan-label`),
 			),
 			Div().Class(`quote-plan-total`).Wrap(
@@ -328,12 +331,19 @@ func QuotePlanDesktopHead(categs []Categ_t, title, sortBy string, showSort, show
 }
 
 func QuotePlanActionButton(name, value, icon, class string) Elem_t {
+	iconView := icon
+	switch icon {
+	case `🛒`:
+		iconView = quoteIconCartSVG
+	case `🗑`:
+		iconView = quoteIconTrashSVG
+	}
 	return Elem(`button`).
 		Type(`button`).
 		Name(name).
 		Value(value).
 		Class(`quote-plan-pick-btn`, `quote-plan-desk-btn`, class).
-		Text(icon)
+		Text(iconView)
 }
 
 func QuotePlanDesktopAddonPickView(planId int, addon QuotePlanAddon_t) Elem_t {

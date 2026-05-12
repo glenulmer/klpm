@@ -336,8 +336,9 @@
 	};
 
 	const onButtonClick = (ev) => {
-		const el = ev.target;
-		if (!(el instanceof HTMLElement)) return;
+		const target = ev.target;
+		if (!(target instanceof HTMLElement)) return;
+		const el = target.closest('#QuoteForm button[name], #QuotePlans button[name]');
 		if (!(el instanceof HTMLButtonElement)) return;
 		if (!el.matches(selector)) return;
 		const name = el.getAttribute('name') || '';

@@ -12,7 +12,7 @@ func EditQDelButton(name string) Elem_t {
 		Name(name).
 		Value(`1`).
 		Class(`editq-del-btn`).
-		Text(`🗑`)
+		Text(quoteIconTrashSVG)
 }
 
 func EditQAddButton(name, label string, class ...string) Elem_t {
@@ -187,9 +187,11 @@ func EditQDependantView(vars QuoteVars_t, dep EditQDep_t) Elem_t {
 	if len(depRows) == 0 {
 		depRows = append(depRows, Div(`No selected plan available.`).Class(`editq-preex-empty`))
 	}
+	namePlaceholder := `Dependant name`
+	if Trim(dep.name) == `` { namePlaceholder = `No-names will be removed` }
 	return Div().Class(`editq-dependant`).Wrap(
 		Div().Class(`editq-dependant-fields-row`).Wrap(
-			QuoteInputText(EditQDepNameKey(dep.depId), dep.name, `Dependant name`).Class(`editq-dep-name`),
+			QuoteInputText(EditQDepNameKey(dep.depId), dep.name, namePlaceholder).Class(`editq-dep-name`),
 			QuoteInputBirth(EditQDepBirthKey(dep.depId), dep.birth).Class(`editq-dep-birth`),
 			Elem(`label`).Class(`editq-check`, `editq-dep-vision`).KV(`title`, `Vision`).Wrap(
 				QuoteCheckbox(EditQDepVisionKey(dep.depId), dep.vision),

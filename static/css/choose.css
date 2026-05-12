@@ -498,11 +498,26 @@
 	cursor: pointer;
 }
 
+.quote-plan-pick-btn .quote-plan-icon {
+	display: block;
+	width: 0.96rem;
+	height: 0.96rem;
+	margin: 0 auto;
+	pointer-events: none;
+}
+
+.quote-plan-pick-del .quote-plan-icon {
+	width: 1.056rem;
+	height: 1.056rem;
+}
+
 .quote-plan-pick-add {
+	color: #496c95;
 	border-color: #9ab6d6;
 }
 
 .quote-plan-pick-del {
+	color: #a06363;
 	border-color: #d1a7a7;
 }
 
