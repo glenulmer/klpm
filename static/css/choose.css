@@ -1107,20 +1107,12 @@
 	height: 1.05rem;
 	min-width: 1.05rem;
 	padding: 0;
-	border: 0.0625rem solid #b7b7b7;
+	border: 0;
 	border-radius: 0.24rem;
-	background: #fff;
+	background: transparent;
 	font-size: 0.72rem;
 	line-height: 1;
 	cursor: pointer;
-}
-
-.quote-plan-desk-btn.quote-plan-pick-add {
-	border-color: #93b3d6;
-}
-
-.quote-plan-desk-btn.quote-plan-pick-del {
-	border-color: #cfa4a4;
 }
 
 .quote-plan-money-head-right {
@@ -1693,6 +1685,12 @@
 	.quote-plans-desktop-host .quote-plan-col-total,
 	.quote-selected-desktop-host .quote-plan-col-total {
 		text-align: right;
+	}
+
+	.quote-plans-desktop-host .quote-plan-table-head {
+		position: sticky;
+		top: calc(var(--quote-sticky-stack-offset, 0rem) - 0.0625rem);
+		z-index: 20;
 	}
 
 	.quote-plans-desktop-host .quote-plan-table-head > .quote-plan-cell {
